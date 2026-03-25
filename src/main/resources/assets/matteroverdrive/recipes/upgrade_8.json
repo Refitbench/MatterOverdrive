@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "matteroverdrive:upgrade",
+    "data": 8
+  },
+  "pattern": [
+    " R ",
+    "WUW",
+    " R "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "R": {
+      "item": "#DUSTREDSTONE"
+    },
+    "U": {
+      "item": "matteroverdrive:upgrade",
+      "data": 0
+    },
+    "W": {
+      "item": "#WOOL"
+    }
+  }
+}

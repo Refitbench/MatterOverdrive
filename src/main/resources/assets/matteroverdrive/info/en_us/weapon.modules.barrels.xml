@@ -1,0 +1,60 @@
+<!--
+  ~ This file is part of Matter Overdrive
+  ~ Copyright (c) 2015., Simeon Radivoev, All rights reserved.
+  ~
+  ~ Matter Overdrive is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU General Public License as published by
+  ~ the Free Software Foundation, either version 3 of the License, or
+  ~ (at your option) any later version.
+  ~
+  ~ Matter Overdrive is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with Matter Overdrive.  If not, see <http://www.gnu.org/licenses>.
+  -->
+
+<entry stylesheet="matteroverdrive:info/styles/guide.css">
+    <page class="padded-page">
+        <title size="2" class="matter-text small-title">Weapon Barrels</title>
+        <text class="matter-text text-block">Weapon Barrels are Upgrades for the Tools/Weapons. They can be applied to the weapon in the Weapon Station.</text>
+    </page>
+    <page class="padded-page">
+        <title size="2" class="matter-text small-title">Dilithium Focusing Matrix</title>
+        <text class="matter-text text-block">It increases the weapon damage but decreases the ammunition (in the case of energy, it increases the power use) and the Special Effect of the weapon. It can be applied on every weapon except of the Omni Tool.</text>
+        <recipe item="[item name=weapon_module_barrel meta=0]" style="float:left"></recipe>
+        <details item="[item name=weapon_module_barrel meta=0]" style="margin-left:16px;margin-top:8px"></details>
+    </page>
+    <page class="padded-page">
+        <title size="2" class="matter-text small-title">Incendiary Filter</title>
+        <text class="matter-text text-block">This module enables Fire Damage to be dealt with Mobs. The downside is that it takes twice as much ammo (power in case of energy weapons). It can be applied on every Weapon except of the Omni Tool.</text>
+        <recipe item="[item name=weapon_module_barrel meta=1]" style="float:left"></recipe>
+        <details item="[item name=weapon_module_barrel meta=1]" style="margin-left:16px;margin-top:8px"></details>
+    </page>
+    <page class="padded-page">
+        <title size="2" class="matter-text small-title">Burst Inductive Drum</title>
+        <text class="matter-text text-block">This module creates explosions on each hit. It also allows the weapon to destroy blocks, if powerful enough. The downside is that the fire rate is lowered significantly and the ammo usage is increased by 80%. It can be applied on every Weapon except of the Omni Tool.</text>
+        <recipe item="[item name=weapon_module_barrel meta=2]" style="float:left"></recipe>
+        <details item="[item name=weapon_module_barrel meta=2]" style="margin-left:16px;margin-top:8px"></details>
+    </page>
+    <page class="padded-page">
+        <title size="2" class="matter-text small-title">Regenerative Converter</title>
+        <text class="matter-text text-block">This module heals the player when the target take's damage from the weapon. Can only be applied to the Phaser.</text>
+        <recipe item="[item name=weapon_module_barrel meta=3]" style="float:left"></recipe>
+        <details item="[item name=weapon_module_barrel meta=3]" style="margin-left:16px;margin-top:8px"></details>
+    </page>
+    <page class="padded-page">
+        <title size="2" class="matter-text small-title">Doomsday</title>
+        <text class="matter-text text-block">Doomsday - Degenerative Explosive Focusing Matrix, This module increases the fire rate so your weapon will shoot faster but overheats quicker. On the Phaser it will deal splashdamage on the targeted block. It can be applied on every Weapon except of the Omni Tool.</text>
+        <recipe item="[item name=weapon_module_barrel meta=4]" style="float:left"></recipe>
+        <details item="[item name=weapon_module_barrel meta=4]" style="margin-left:16px;margin-top:8px"></details>
+    </page>
+    <page class="padded-page">
+        <title size="2" class="matter-text small-title">V.E.N.O.M</title>
+        <text class="matter-text text-block">V.E.N.O.M - Voxel Exaggerating Nullification Obliteration Matrix, This module allows the Omni Tool to break blocks much faster.</text>
+        <recipe item="[item name=weapon_module_barrel meta=5]" style="float:left"></recipe>
+        <details item="[item name=weapon_module_barrel meta=5]" style="margin-left:16px;margin-top:8px"></details>
+    </page>
+</entry>

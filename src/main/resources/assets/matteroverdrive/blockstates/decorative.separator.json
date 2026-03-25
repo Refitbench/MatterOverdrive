@@ -1,0 +1,18 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "cube_all",
+    "textures": {
+      "all": "matteroverdrive:blocks/separator"
+    }
+  },
+  "variants": {
+    "axis=x":{"model": "matteroverdrive:base/cube_rotated_all"},
+    "axis=y":{"model": "cube_all"},
+    "axis=z":{"model": "cube_all"},
+    "inventory": [{
+      "model": "cube_all",
+      "transform": "forge:default-block"
+    }]
+  }
+}

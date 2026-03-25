@@ -1,0 +1,66 @@
+{
+	"pools": [{
+		"name": "crashedShip",
+		"rolls": {
+			"min": 1,
+			"max": 1
+		},
+		"entries": [{
+				"type": "item",
+				"name": "matteroverdrive:emergency_ration",
+				"weight": 100
+			},
+			{
+				"type": "item",
+				"name": "matteroverdrive:earl_gray_tea",
+				"weight": 50
+			}, {
+				"type": "item",
+				"name": "matteroverdrive:romulan_ale",
+				"weight": 50
+			}, {
+				"type": "item",
+				"name": "matteroverdrive:android_Pill",
+				"weight": 10,
+				"functions": [{
+					"function": "set_data",
+					"data": {
+						"min": 1,
+						"max": 2
+					}
+				}]
+			}, {
+				"type": "item",
+				"name": "matteroverdrive:weapon_module_barrel",
+				"weight": 8,
+				"functions": [{
+					"function": "set_data",
+					"data": {
+						"min": 0,
+						"max": 5
+					}
+				}]
+			}, {
+				"type": "item",
+				"name": "matteroverdrive:hc_battery",
+				"weight": 10
+			}, {
+				"type": "item",
+				"name": "matteroverdrive:h_compensator",
+				"weight": 10
+			}, {
+				"type": "item",
+				"name": "matteroverdrive:me_conversion_matrix",
+				"weight": 10
+			}, {
+				"type": "item",
+				"name": "matteroverdrive:matter_container",
+				"weight": 15
+			}, {
+				"type": "item",
+				"name": "matteroverdrive:phaser",
+				"weight": 10
+			}
+		]
+	}]
+}

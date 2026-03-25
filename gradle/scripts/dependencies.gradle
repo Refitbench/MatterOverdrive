@@ -3,6 +3,18 @@ apply from: 'gradle/scripts/helpers.gradle'
 repositories {
     // Other repositories described by default:
     // CleanroomMC: https://maven.cleanroommc.com
+    flatDir {
+        name 'LocalLibs'
+        dirs file("${rootDir}/libs")
+    }
+    maven {
+        name 'BlameJared (JEI)'
+        url 'https://maven.blamejared.com'
+    }
+    maven {
+        name 'OpenComputers'
+        url 'https://maven.cil.li/'
+    }
     exclusiveContent {
         forRepository {
             maven {
@@ -50,6 +62,20 @@ dependencies {
     // Example - Modrinth dependencies:
     // 'maven.modrinth:jei:4.16.1.1000' << jei = project name, 4.16.1.1000 = file version
     // Full documentation: https://docs.modrinth.com/docs/tutorials/maven/
+
+    // MatterOverdrive dependencies
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+    // WAILA/Hwyla (local jar in libs/)
+    compileOnly rfg.deobf(files("${rootDir}/libs/Hwyla-1.8.26-B41_1.12.2.jar"))
+
+    // JEI - Just Enough Items
+    compileOnly rfg.deobf('mezz.jei:jei_1.12.2:4.8.5.138:api')
+    runtimeOnly rfg.deobf('mezz.jei:jei_1.12.2:4.8.5.138')
+
+    // OpenComputers
+    compileOnly rfg.deobf('li.cil.oc:OpenComputers:MC1.12.2-1.7.5.221')
 
     // Common dependency types (configuration):
     // implementation = dependency available at both compile time and runtime

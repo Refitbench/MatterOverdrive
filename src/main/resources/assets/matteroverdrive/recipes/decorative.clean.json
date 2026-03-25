@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "matteroverdrive:decorative.clean",
+    "count": 8
+  },
+  "pattern": [
+    "SS ",
+    "SS ",
+    "   "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "S": {
+      "item": "#INGOTTRITANIUM"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "result": {
+    "item": "matteroverdrive:weapon_handle"
+  },
+  "pattern": [
+    "TWT",
+    "I I",
+    "I I"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "T": {
+      "item": "#INGOTTRITANIUM"
+    },
+    "W": {
+      "item": "#WOOL"
+    },
+    "I": {
+      "item": "#INGOTIRON"
+    }
+  }
+}

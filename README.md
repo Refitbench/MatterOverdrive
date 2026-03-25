@@ -1,21 +1,33 @@
-## TemplateDevEnv
-_For Kotlin see [TemplateDevEnvKt](https://github.com/CleanroomMC/TemplateDevEnvKt)_
+![](BannerBlinks.gif)
 
-Template workspace for modding Minecraft 1.12.2. Licensed under MIT, it is made for public use.
+![Discord](https://img.shields.io/discord/703124643149643818?logo=discord&link=https%3A%2F%2Fdiscord.gg%2FsgQxDJdrnY) 
 
-This template runs on **Java 25**, **Gradle 9.2.1** + **[RetroFuturaGradle](https://github.com/GTNewHorizons/RetroFuturaGradle) 2.0.2** + **Forge 14.23.5.2847**.
+## Table of Contents
+* [About](#about)
+* [Mod-Links](#mod-links)
+* [Features](#features)
+* [Issues](#issues)
 
-With **coremod and mixin support** that is easy to configure.
+## About
+Matter Overdrive is a Minecraft mod inspired by the popular Sci-fi TV series Star Trek. It dwells in the concept of replicating and transforming one type matter into another.
+Although it may seem overpowered, Matter Overdrive takes a more realistic approach and requires the player to build a complex system before even the simplest replication can be achieved.
 
-### Instructions:
+## Mod-Links
+* [Discord](https://discord.gg/sgQxDJdrnY)
 
-1. Click `use this template` at the top.
-2. Clone the repository that you have created with this template to your local machine.
-3. Make sure IDEA is using Java 25 for Gradle before you sync the project. Verify this by going to IDEA's `Settings > Build, Execution, Deployment > Build Tools > Gradle > Gradle JVM`.
-4. Open the project folder in IDEA. When prompted, click "Load Gradle Project" as it detects the `build.gradle`, if you weren't prompted, right-click the project's `build.gradle` in IDEA, select `Link Gradle Project`, after completion, hit `Refresh All` in the gradle tab on the right.
-5. Run gradle tasks such as `runClient` and `runServer` in the IDEA gradle tab, or use the auto-imported run configurations like `1. Run Client`.
+## Features
+* [Matter Scanner](https://mo.simeonradivoev.com/items/matter_scanner/), for scanning matter patterns for replication.
+* [Replicator](https://mo.simeonradivoev.com/items/replicator/), for transforming materials.
+* [Decomposer](https://mo.simeonradivoev.com/items/decomposer/), for breaking down materials to basic form.
+* [Transporter](https://mo.simeonradivoev.com/items/transporter/), for beaming up.
+* [Phaser](https://mo.simeonradivoev.com/items/phaser/), to set on stun.
+* [Fusion Reactors](https://mo.simeonradivoev.com/fusion-reactor/) and [Gravitational Anomaly](https://mo.simeonradivoev.com/items/gravitational_anomaly/), for that sweet energy.
+* Complex Networking for replication control.
+* Star Maps, with Galaxies, Stars, and Planets.
+* [Androids](https://mo.simeonradivoev.com/android-guide/), become an Android and learn powerful RPG like abilities, such as Teleportation and Forcefields.
 
-### Notes:
-- Dependencies script in [gradle/scripts/dependencies.gradle](gradle/scripts/dependencies.gradle), explanations are commented in the file.
-- Publishing script in [gradle/scripts/publishing.gradle](gradle/scripts/publishing.gradle).
-- When writing Mixins on IntelliJ, it is advisable to use latest [MinecraftDev Fork for RetroFuturaGradle](https://github.com/eigenraven/MinecraftDev/releases).
+
+![Matter Overdrive Blocks and Items](https://mo.simeonradivoev.com/wp-content/uploads/2015/05/main_screenshot.png)
+
+## Issues:
+https://github.com/Refitbench/MatterOverdrive-CE-Cleanroom/issues
