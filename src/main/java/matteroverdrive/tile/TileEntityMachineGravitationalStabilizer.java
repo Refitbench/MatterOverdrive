@@ -20,7 +20,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector3f;
@@ -30,7 +29,7 @@ import java.awt.*;
 
 import static matteroverdrive.util.MOBlockHelper.getAboveSide;
 
-public class TileEntityMachineGravitationalStabilizer extends MOTileEntityMachine implements IMOTickable {
+public class TileEntityMachineGravitationalStabilizer extends MOTileEntityMachine {
 	public static Color color1 = new Color(0xFFFFFF);
 	public static Color color2 = new Color(0xFF0000);
 	public static Color color3 = new Color(0x115A84);
@@ -47,6 +46,10 @@ public class TileEntityMachineGravitationalStabilizer extends MOTileEntityMachin
 		if (world.isRemote) {
 			spawnParticles(world);
 			hit = seacrhForAnomalies(world);
+		} else {
+			if (getRedstoneActive()) {
+				manageAnomalies(world);
+			}
 		}
 	}
 
@@ -191,17 +194,6 @@ public class TileEntityMachineGravitationalStabilizer extends MOTileEntityMachin
 	@Override
 	public boolean shouldRenderInPass(int pass) {
 		return pass == 1;
-	}
-
-	@Override
-	public void onServerTick(TickEvent.Phase phase, World world) {
-		if (world == null) {
-			return;
-		}
-
-		if (phase.equals(TickEvent.Phase.END) && getRedstoneActive()) {
-			manageAnomalies(world);
-		}
 	}
 
 	@Override

@@ -61,11 +61,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.client.FMLClientHandler;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class TileEntityGravitationalAnomaly extends MOTileEntity implements IScannable, IMOTickable,IGravitationalAnomaly
+public class TileEntityGravitationalAnomaly extends MOTileEntity implements IScannable, IGravitationalAnomaly
 {
     public static boolean FALLING_BLOCKS = true;
     public static boolean BLOCK_ENTETIES = true;
@@ -121,15 +120,7 @@ public class TileEntityGravitationalAnomaly extends MOTileEntity implements ISca
             manageSound();
             manageClientEntityGravitation(world);
         }
-    }
-
-    @Override
-    public void onServerTick(TickEvent.Phase phase,World world)
-    {
-        if (world == null)
-            return;
-
-        if (phase.equals(TickEvent.Phase.END))
+        else
         {
             float tmpSuppression = calculateSuppression();
             if (tmpSuppression != suppression)
@@ -137,15 +128,15 @@ public class TileEntityGravitationalAnomaly extends MOTileEntity implements ISca
                 suppression = tmpSuppression;
             }
 
-			manageEntityGravitation(world, 0);
-			tickCounter++;
-			if (tickCounter==20) {
-				manageBlockDestory(world);
-				index++;
-				tickCounter = 0;
-			}
-		}
-	}
+            manageEntityGravitation(world, 0);
+            tickCounter++;
+            if (tickCounter == 20) {
+                manageBlockDestory(world);
+                index++;
+                tickCounter = 0;
+            }
+        }
+    }
     //endregion
 
 	@SideOnly(Side.CLIENT)
