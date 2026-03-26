@@ -120,7 +120,6 @@ public class TileEntityMachineReplicator extends MOTileEntityMachineMatter
 
 	private void manageUpgrades() {
 			this.matterStorage.setCapacity((int) Math.round(MATTER_STORAGE * getUpgradeMultiply(UpgradeTypes.MatterStorage)));
-			updateClientMatter();
 	}
 
 	@SideOnly(Side.CLIENT)

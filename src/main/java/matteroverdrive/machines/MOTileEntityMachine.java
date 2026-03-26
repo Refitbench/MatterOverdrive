@@ -143,13 +143,15 @@ public abstract class MOTileEntityMachine extends MOTileEntity
 			lastActive = isActive();
 		}
 
-		components.stream().filter(component -> component instanceof ITickable).forEach(component -> {
-			try {
-				((ITickable) component).update();
-			} catch (Exception e) {
-				MOLog.log(Level.FATAL, e, "There was a problem while ticking %s component %s", this, component);
+		for (IMachineComponent component : components) {
+			if (component instanceof ITickable) {
+				try {
+					((ITickable) component).update();
+				} catch (Exception e) {
+					MOLog.log(Level.FATAL, e, "There was a problem while ticking %s component %s", this, component);
+				}
 			}
-		});
+		}
 	}
 
 	protected void RegisterSlots(Inventory inventory) {

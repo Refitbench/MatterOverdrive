@@ -96,7 +96,6 @@ public class TileEntityMachineDecomposer extends MOTileEntityMachineMatter imple
 
 	private void manageUpgrades() {
 			this.matterStorage.setCapacity((int) Math.round(MATTER_STORAGE * getUpgradeMultiply(UpgradeTypes.MatterStorage)));
-			updateClientMatter();
 	}
 
 	private void manageExtract() {
