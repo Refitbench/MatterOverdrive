@@ -12,7 +12,6 @@ import matteroverdrive.handler.village.VillageCreatationMadScientist;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -24,7 +23,6 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.item.ItemStack;
 
-@Mod.EventBusSubscriber
 public class MatterOverdriveEntities {
 	public static final int ENTITY_STARTING_ID = 171;
 	public static EntityRogueAndroid rogueandroid;

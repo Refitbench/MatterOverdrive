@@ -1,0 +1,19 @@
+# IDEAS / TODO
+- Implement a Comm Badge and Teleporter Controller, the comm badge can link to the controller and allow for teleportation back home from a configurable distance.
+-   The Teleporter Controller could also lock onto other things and teleport it, or increase the range with a manual lock. (Another player required).
+- Implement a HoloDeck, proxy for interdim travel with approved dim list.
+- Investigate Quantum Fold Manipulator
+- Disable / Finish Dimensional Pylon (Dimensional Generator).
+
+# OPTIMIZATIONS
+- Cables seem to be doing connection scans, we should only update this on a side change, cache!
+
+# DEBUG / TESTING
+- Test matter and upgrades updating due to #346b739
+-   Applies to Replicator, Decomposer, and SpaceTimeAccelerator.
+
+# KNOWN ISSUES / BUGS
+- When the fusion reactor is at max power and draining slightly, the 100% will flicker, solution is to switch to rounding after 1%
+- Fusion reactor controller screen flickers with Nothirium.
+- Color decorative tiles have lowercase localized names.
+- When starmap is disabled, remove starmap related items.

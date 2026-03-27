@@ -134,6 +134,12 @@ public class MatterOverdrive {
 		ITEMS.init();
 		OverdriveFluids.init(event);
 		BLOCKS.init();
+
+		MinecraftForge.EVENT_BUS.register(MatterOverdriveBlocks.class);
+		MinecraftForge.EVENT_BUS.register(MatterOverdriveItems.class);
+		MinecraftForge.EVENT_BUS.register(MatterOverdriveEntities.class);
+		MinecraftForge.EVENT_BUS.register(MatterOverdriveEnchantments.class);
+
 		OverdriveBioticStats.init();
 		MatterOverdriveDialogs.init(CONFIG_HANDLER, DIALOG_REGISTRY);
 		MatterOverdriveQuests.init();

@@ -31,13 +31,11 @@ import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod.EventBusSubscriber
 public class MatterOverdriveItems {
 	public final static Item.ToolMaterial TOOL_MATERIAL_TRITANIUM = EnumHelper.addToolMaterial("TRITANIUM", 2, 3122, 6f,
 			2f, 14);

@@ -22,13 +22,11 @@ import net.minecraft.item.ItemColored;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.BlockFluidClassic;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Mod.EventBusSubscriber
 public class MatterOverdriveBlocks {
 	public static final List<IRecipe> recipes = new ArrayList<>();
 	public static List<Block> blocks = new ArrayList<>();
