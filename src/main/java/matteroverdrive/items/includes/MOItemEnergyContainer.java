@@ -85,7 +85,7 @@ public abstract class MOItemEnergyContainer extends MOBaseItem {
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (isInCreativeTab(tab)) {
 			items.add(new ItemStack(this));
-			if (addPoweredItem()) {
+			if (addPoweredItem() && matteroverdrive.MatterOverdrive.CONFIG_HANDLER.showFilledItems) {
 				ItemStack powered = new ItemStack(this);
 				IEnergyStorage storage = getStorage(powered);
 				if (storage instanceof EnergyContainer)

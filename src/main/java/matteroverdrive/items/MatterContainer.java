@@ -307,7 +307,9 @@ public class MatterContainer extends MOBaseItem {
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> subItems) {
 		if (isInCreativeTab(tab)) {
 			subItems.add(new ItemStack(this));
-			subItems.add(getFullStack());
+			if (matteroverdrive.MatterOverdrive.CONFIG_HANDLER.showFilledItems) {
+				subItems.add(getFullStack());
+			}
 		}
 	}
 

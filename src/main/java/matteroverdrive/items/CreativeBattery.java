@@ -23,7 +23,7 @@ public class CreativeBattery extends Battery {
 
 	@Override
 	protected boolean addPoweredItem() {
-		return false;
+		return matteroverdrive.MatterOverdrive.CONFIG_HANDLER.showFilledItems;
 	}
 
 	public static class InfiniteProvider implements ICapabilitySerializable<NBTTagCompound> {
