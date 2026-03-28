@@ -170,5 +170,32 @@ public class BlockGravitationalAnomaly extends MOBlockContainer<TileEntityGravit
 		TileEntityGravitationalAnomaly.SOUND = config.getBool("gravitational anomaly souund",
 				ConfigurationHandler.CATEGORY_CLIENT, true,
 				"Should the gravitational anomaly have sound?");
+		String cat = ConfigurationHandler.CATEGORY_SERVER + "." + getTranslationKey().substring(5);
+		TileEntityGravitationalAnomaly.BLOCK_SCAN_SLICES = config.getInt(
+				ConfigurationHandler.KEY_GRAVITATIONAL_ANOMALY_BLOCK_SCAN_SLICES, cat, 8,
+				"Divides the block scan sphere into N vertical slices, each processed on a separate scan cycle. "
+				+ "Higher values spread CPU cost across more ticks, reducing lag spikes at the cost of slower "
+				+ "destruction updates. 1 = full sphere scanned per cycle (default). Recommended range: 1-8.");
+		TileEntityGravitationalAnomaly.BLOCK_SCAN_INTERVAL_TICKS = config.getInt(
+				ConfigurationHandler.KEY_GRAVITATIONAL_ANOMALY_SCAN_INTERVAL_TICKS, cat, 10,
+				"How often (in server ticks) the anomaly runs a block destruction scan cycle. "
+				+ "Default is 20 (once per second). Increase to reduce server CPU usage at the expense of "
+				+ "slower block consumption. Combine with block scan slices for maximum performance gain.");
+		TileEntityGravitationalAnomaly.ENTITY_GRAVITATION_INTERVAL = config.getInt(
+				ConfigurationHandler.KEY_GRAVITATIONAL_ANOMALY_ENTITY_GRAV_INTERVAL, cat, 2,
+				"How often (in server ticks) the anomaly applies gravitational pull to nearby entities. "
+				+ "Default is 2 (every other tick). Higher values reduce server load but make pull physics "
+				+ "less smooth. Minimum effective value: 1.");
+		TileEntityGravitationalAnomaly.SCAN_Y_MODE = config.getInt(
+				ConfigurationHandler.KEY_GRAVITATIONAL_ANOMALY_SCAN_Y_MODE, cat, 0,
+				"Controls the vertical scan depth for block destruction. "
+				+ "0 = FULL: scan the entire spherical range on all axes (default). "
+				+ "1 = LIMITED: clamp vertical scan to half the break range above and below, reducing underground scanning. "
+				+ "2 = SURFACE: only scan within 8 blocks above and below the anomaly's Y position.");
+		TileEntityGravitationalAnomaly.FORCE_LOAD_ENABLED = config.getBool(
+				ConfigurationHandler.KEY_GRAVITATIONAL_ANOMALY_FORCE_LOAD_ENABLED, cat, true,
+				"When true, the anomaly force-loads all chunks within its break range using Forge's chunk loader. "
+				+ "This prevents synchronous chunk loads during block scanning which can cause lag spikes. "
+				+ "Set to false to disable chunk force-loading entirely if it causes issues on your server.");
 	}
 }
