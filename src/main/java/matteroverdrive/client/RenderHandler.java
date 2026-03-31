@@ -30,6 +30,7 @@ import matteroverdrive.client.render.DimensionalRiftsRender;
 import matteroverdrive.client.render.IWorldLastRenderer;
 import matteroverdrive.client.render.PipeRenderManager;
 import matteroverdrive.client.render.RenderDialogSystem;
+import matteroverdrive.client.render.RenderGravitationalAnomalyDebug;
 import matteroverdrive.client.render.RenderMatterScannerInfoHandler;
 import matteroverdrive.client.render.RenderParticlesHandler;
 import matteroverdrive.client.render.RenderWeaponsBeam;
@@ -236,6 +237,9 @@ public class RenderHandler {
 		addCustomRenderer(renderWeaponsBeam);
 		addCustomRenderer(renderDialogSystem);
 		addCustomRenderer(dimensionalRiftsRender);
+		if (TileEntityGravitationalAnomaly.DEBUG_SCAN_WIREFRAME) {
+			addCustomRenderer(new RenderGravitationalAnomalyDebug());
+		}
 
 		MinecraftForge.EVENT_BUS.register(pipeRenderManager);
 		MinecraftForge.EVENT_BUS.register(weaponRenderHandler);

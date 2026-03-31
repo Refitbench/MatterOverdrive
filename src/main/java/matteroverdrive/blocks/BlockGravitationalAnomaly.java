@@ -192,5 +192,9 @@ public class BlockGravitationalAnomaly extends MOBlockContainer<TileEntityGravit
 				ConfigurationHandler.KEY_GRAVITATIONAL_ANOMALY_ENTITY_SCAN_RATE, cat, 10,
 				"How often (in ticks) the anomaly rescans for nearby entities. Force is still applied every tick. "
 				+ "Higher values reduce CPU cost at the expense of slightly delayed pickup of newly entered entities.");
+		TileEntityGravitationalAnomaly.DEBUG_SCAN_WIREFRAME = config.getBool(
+				ConfigurationHandler.KEY_GRAVITATIONAL_ANOMALY_DEBUG_SCAN_WIREFRAME,
+				ConfigurationHandler.CATEGORY_DEBUG, false,
+				"Draw wireframe spheres for each scan band radius around every loaded anomaly. Client-side debug only.");
 	}
 }

@@ -81,6 +81,7 @@ public class TileEntityGravitationalAnomaly extends MOTileEntity implements ISca
     public static int SCAN_BAND_INNER_PCT = 15; // % of SCAN_BATCH_SIZE scanned per tick for inner band
     public static int SCAN_BAND_MID_PCT   = 30; // % of SCAN_BATCH_SIZE scanned per tick for mid band
                                                 // outer band gets the remaining (100 - inner - mid)%
+    public static boolean DEBUG_SCAN_WIREFRAME = false; // client-side: draw wireframe band spheres
     public static final double STREHGTH_MULTIPLYER = 0.00001;
     public static final double G = 6.67384;
     public static final double G2 = G * 2;
