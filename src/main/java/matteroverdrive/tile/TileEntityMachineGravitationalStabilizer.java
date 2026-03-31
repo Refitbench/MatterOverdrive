@@ -40,15 +40,16 @@ public class TileEntityMachineGravitationalStabilizer extends MOTileEntityMachin
 	public static Color color2 = new Color(0xFF0000);
 	public static Color color3 = new Color(0x115A84);
 
-	// Energy config — populated by BlockGravitationalStabilizer.onConfigChanged()
+	// Energy/scan config — populated by BlockGravitationalStabilizer.onConfigChanged()
 	public static int ENERGY_CAPACITY = 100000;
 	public static int MAX_ENERGY_RECEIVE = 2000;
 	public static int BASE_ENERGY_PER_TICK = 20;
 	public static int MAX_ENERGY_PER_TICK = 200;
+	public static int RESCAN_RATE = 40;
 
 	RayTraceResult hit;
 	private EnumFacing cachedFront;
-	private int rescanTimer = 20; // start at 20 so first tick triggers an immediate scan
+	private int rescanTimer = RESCAN_RATE; // start at RESCAN_RATE so first tick triggers an immediate scan
 
 	public TileEntityMachineGravitationalStabilizer() {
 		super(4);
@@ -76,7 +77,7 @@ public class TileEntityMachineGravitationalStabilizer extends MOTileEntityMachin
 		rescanTimer++;
 
 		if (world.isRemote) {
-			if (rescanTimer >= 20) {
+			if (rescanTimer >= RESCAN_RATE) {
 				hit = seacrhForAnomalies(world);
 				rescanTimer = 0;
 			}
@@ -93,6 +94,21 @@ public class TileEntityMachineGravitationalStabilizer extends MOTileEntityMachin
 	protected void onMachineEvent(MachineEvent event) {
 		if (event instanceof MachineEvent.NeighborChange) {
 			cachedFront = null;
+			EnumFacing front = getFront();
+			BlockPos pos1 = getPos().offset(front, 1);
+			IBlockState bs = world.getBlockState(pos1);
+			if (bs.getBlock() instanceof BlockGravitationalAnomaly || bs.getMaterial().isOpaque()) {
+				// something just entered pos 1 — update hit immediately, no rescan needed
+				hit = new RayTraceResult(
+						new Vec3d(pos1).subtract(Math.abs(front.getDirectionVec().getX() * 0.5),
+								Math.abs(front.getDirectionVec().getY() * 0.5),
+								Math.abs(front.getDirectionVec().getZ() * 0.5)),
+						front.getOpposite(), pos1);
+			} else if (hit != null && hit.getBlockPos().equals(pos1)) {
+				// pos 1 was cleared — rescan positions 2+ next tick to find new hit
+				hit = null;
+				rescanTimer = RESCAN_RATE;
+			}
 		}
 	}
 
@@ -105,7 +121,7 @@ public class TileEntityMachineGravitationalStabilizer extends MOTileEntityMachin
 
 	RayTraceResult seacrhForAnomalies(World world) {
 		EnumFacing front = getFront();
-		for (int i = 1; i < 64; i++) {
+		for (int i = 2; i < 64; i++) { // pos 1 is handled exclusively by the NeighborChange event
 			IBlockState blockState = world.getBlockState(getPos().offset(front, i));
 			if (blockState.getBlock() instanceof BlockGravitationalAnomaly || blockState.getMaterial().isOpaque()) {
 				return new RayTraceResult(
@@ -119,7 +135,7 @@ public class TileEntityMachineGravitationalStabilizer extends MOTileEntityMachin
 	}
 
 	void manageAnomalies(World world) {
-		if (rescanTimer >= 20) {
+		if (rescanTimer >= RESCAN_RATE) {
 			rescanTimer = 0;
 			hit = seacrhForAnomalies(world);
 		}

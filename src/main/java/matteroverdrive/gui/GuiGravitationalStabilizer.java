@@ -84,7 +84,7 @@ public class GuiGravitationalStabilizer
 	}
 
 	private static Color stressColor(float stress) {
-		Color low = Reference.COLOR_HOLO;        // 169,226,251 — whitish blue
+		Color low = Color.WHITE;                 // 255,255,255 — pure white
 		Color mid = Reference.COLOR_HOLO_YELLOW; // 252,223,116 — yellow
 		Color hi  = Reference.COLOR_HOLO_RED;    // 230, 80, 20 — orange-red
 		Color a, b;

@@ -105,6 +105,7 @@ public class ConfigurationHandler {
 	public static final String KEY_GRAVITATIONAL_STABILIZER_MAX_ENERGY_RECEIVE = "gravitational stabilizer max energy receive";
 	public static final String KEY_GRAVITATIONAL_STABILIZER_BASE_ENERGY_PER_TICK = "gravitational stabilizer base energy per tick";
 	public static final String KEY_GRAVITATIONAL_STABILIZER_MAX_ENERGY_PER_TICK = "gravitational stabilizer max energy per tick";
+	public static final String KEY_GRAVITATIONAL_STABILIZER_RESCAN_RATE = "gravitational stabilizer rescan rate";
 	public static final String KEY_HOUSE = "generate house";
 	public static final String KEY_ANDROID_HOUSE_SPAWN_CHANCE = "android house spawn chance";
 	public static final String KEY_SAND_PIT_SPAWN_CHANCE = "sand pit spawn chance";

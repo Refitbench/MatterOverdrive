@@ -44,6 +44,9 @@ public class BlockGravitationalStabilizer extends MOBlockMachine<TileEntityMachi
 		TileEntityMachineGravitationalStabilizer.MAX_ENERGY_PER_TICK = config.getMachineInt(
 				machine, ConfigurationHandler.KEY_GRAVITATIONAL_STABILIZER_MAX_ENERGY_PER_TICK, 200,
 				"RF/t consumed at maximum anomaly stress (stress = 100%).");
+		TileEntityMachineGravitationalStabilizer.RESCAN_RATE = config.getMachineInt(
+				machine, ConfigurationHandler.KEY_GRAVITATIONAL_STABILIZER_RESCAN_RATE, 40,
+				"How often (in ticks) the stabilizer re-scans the beam length for obstructions. Default 40 (~2s). Lower = more responsive, higher = cheaper.");
 	}
 
 	@Override
