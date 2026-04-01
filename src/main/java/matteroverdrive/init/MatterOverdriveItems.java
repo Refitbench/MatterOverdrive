@@ -168,14 +168,21 @@ public class MatterOverdriveItems {
 		tritanium_nugget = register(new MOItemOre("tritanium_nugget", "nuggetTritanium"));
 		tritanium_dust = register(new MOItemOre("tritanium_dust", "dustTritanium"));
 		tritanium_plate = register(new MOBaseItem("tritanium_plate"));
-		matter_dust = register(new MatterDust("matter_dust", "matterDust", false));
-		matter_dust_refined = register(new MatterDust("matter_dust_refined", "matterDustRefined", true));
 
-//		Food(ish)
-		androidPill = register(new AndroidPill("android_pill"));
-		emergency_ration = register(new MOItemFood("emergency_ration", 8, 0.8f, false));
-		earl_gray_tea = register(new EarlGrayTea("earl_gray_tea"));
-		romulan_ale = register(new RomulanAle("romulan_ale"));
+//		Information
+		dataPad = register(new DataPad("data_pad"));
+
+//		Crafting Ingredients
+		me_conversion_matrix = register(new MOBaseItem("me_conversion_matrix"));
+		h_compensator = register(new MOBaseItem("h_compensator"));
+		integration_matrix = register(new MOBaseItem("integration_matrix"));
+		machine_casing = register(new MOBaseItem("machine_casing"));
+		s_magnet = register(new MOBaseItem("s_magnet"));
+		isolinear_circuit = register(new IsolinearCircuit("isolinear_circuit"));
+		forceFieldEmitter = register(new MOBaseItem("forcefield_emitter"));
+		weaponHandle = register(new MOBaseItem("weapon_handle"));
+		weaponReceiver = register(new MOBaseItem("weapon_receiver"));
+		plasmaCore = register(new MOBaseItem("plasma_core"));
 
 //		Storage
 		battery = register(new Battery("battery", 1 << 19, 400, 800));
@@ -183,33 +190,15 @@ public class MatterOverdriveItems {
 		creative_battery = register(new CreativeBattery("creative_battery"));
 		matterContainer = register(new MatterContainer("matter_container"));
 
-//		Crafting
-		me_conversion_matrix = register(new MOBaseItem("me_conversion_matrix"));
-		h_compensator = register(new MOBaseItem("h_compensator"));
-		integration_matrix = register(new MOBaseItem("integration_matrix"));
-		machine_casing = register(new MOBaseItem("machine_casing"));
-		s_magnet = register(new MOBaseItem("s_magnet"));
-		isolinear_circuit = register(new IsolinearCircuit("isolinear_circuit"));
-		if (MatterOverdrive.CONFIG_HANDLER.showInDevItems) {
-			matterItem = register(new MatterItem("matter"));
-		}
-		forceFieldEmitter = register(new MOBaseItem("forcefield_emitter"));
-		weaponHandle = register(new MOBaseItem("weapon_handle"));
-		weaponReceiver = register(new MOBaseItem("weapon_receiver"));
-		plasmaCore = register(new MOBaseItem("plasma_core"));
-
-//		Ships & Buildings (only registered when starmap feature is enabled)
-		if (MatterOverdrive.CONFIG_HANDLER.starmapEnabled) {
-			scoutShip =  register(new ItemScoutShip("scout_ship"));
-			colonizerShip =  register(new ItemColonizerShip("ship_colonizer"));
-
-			shipFactory =  register(new ShipFactory("ship_factory"));
-			buildingBase =  register(new ItemBuildingBase("building_base"));
-			buildingMatterExtractor =  register(new ItemBuildingMatterExtractor("building_matter_extractor"));
-			buildingResidential =  register(new ItemBuildingResidential("building_residential"));
-			buildingShipHangar =  register(new ItemBuildingShipHangar("building_ship_hangar"));
-			buildingPowerGenerator =  register(new ItemBuildingPowerGenerator("building_power_generator"));
-		}
+//		Pattern Tech and Upgrades
+		matter_scanner = register(new MatterScanner("matter_scanner"));
+		pattern_drive = register(new PatternDrive("pattern_drive", 2));
+		transportFlashDrive = register(new TransportFlashDrive("transport_flash_drive"));
+		networkFlashDrive = register(new NetworkFlashDrive("network_flash_drive"));
+		item_upgrade = register(new ItemUpgrade("upgrade"));
+		security_protocol = register(new SecurityProtocol("security_protocol"));
+		portableDecomposer = register(new PortableDecomposer("portable_decomposer", 512, 0.1f));
+		spacetime_equalizer = register(new SpacetimeEqualizer("spacetime_equalizer"));
         
 //		Weapons
 		phaser = register(new Phaser("phaser"));
@@ -217,6 +206,7 @@ public class MatterOverdriveItems {
 		plasmaShotgun = register(new PlasmaShotgun("plasma_shotgun"));
 		ionSniper = register(new IonSniper("ion_sniper"));
 		omniTool = register(new OmniTool("omni_tool"));
+		energyPack = register(new EnergyPack("energy_pack"));
 
 //		Weapon Modules
 		weapon_module_color = register(new WeaponModuleColor("weapon_module_color"));
@@ -225,7 +215,7 @@ public class MatterOverdriveItems {
 		weaponModuleRicochet = register(new WeaponModuleRicochet("weapon_module_ricochet"));
 		weaponModuleHoloSights = register(new WeaponModuleHoloSights("weapon_module_holo_sights"));
 		holoSightsBase = register(new HoloSightsBase("holo_sights_base"));
-
+		
 //		Tools
 		wrench = register(new Wrench("tritanium_wrench"));
 		tritaniumAxe = register(new TritaniumAxe("tritanium_axe"));
@@ -242,18 +232,31 @@ public class MatterOverdriveItems {
 		androidParts = register(new RougeAndroidParts("rogue_android_part"));
 		tritaniumSpine = register(new TritaniumSpine("tritanium_spine"));
 
-//		Misc
-		matter_scanner = register(new MatterScanner("matter_scanner"));
-		pattern_drive = register(new PatternDrive("pattern_drive", 2));
-		networkFlashDrive = register(new NetworkFlashDrive("network_flash_drive"));
-		item_upgrade = register(new ItemUpgrade("upgrade"));
-		transportFlashDrive = register(new TransportFlashDrive("transport_flash_drive"));
-		energyPack = register(new EnergyPack("energy_pack"));
-		dataPad = register(new DataPad("data_pad"));
+//		Non-craftables
+		matter_dust = register(new MatterDust("matter_dust", "matterDust", false));
+		matter_dust_refined = register(new MatterDust("matter_dust_refined", "matterDustRefined", true));
+		if (MatterOverdrive.CONFIG_HANDLER.showInDevItems) {
+			matterItem = register(new MatterItem("matter"));
+		}
+		androidPill = register(new AndroidPill("android_pill"));
 		contract = register(new Contract("contract"));
-		portableDecomposer = register(new PortableDecomposer("portable_decomposer", 512, 0.1f));
-		security_protocol = register(new SecurityProtocol("security_protocol"));
-		spacetime_equalizer = register(new SpacetimeEqualizer("spacetime_equalizer"));
+		emergency_ration = register(new MOItemFood("emergency_ration", 8, 0.8f, false));
+		earl_gray_tea = register(new EarlGrayTea("earl_gray_tea"));
+		romulan_ale = register(new RomulanAle("romulan_ale"));
+
+//		Ships & Buildings (only registered when starmap feature is enabled)
+		if (MatterOverdrive.CONFIG_HANDLER.starmapEnabled) {
+			scoutShip =  register(new ItemScoutShip("scout_ship"));
+			colonizerShip =  register(new ItemColonizerShip("ship_colonizer"));
+
+			shipFactory =  register(new ShipFactory("ship_factory"));
+			buildingBase =  register(new ItemBuildingBase("building_base"));
+			buildingMatterExtractor =  register(new ItemBuildingMatterExtractor("building_matter_extractor"));
+			buildingResidential =  register(new ItemBuildingResidential("building_residential"));
+			buildingShipHangar =  register(new ItemBuildingShipHangar("building_ship_hangar"));
+			buildingPowerGenerator =  register(new ItemBuildingPowerGenerator("building_power_generator"));
+		}
+
 		recordTransformation = register(new ItemRecordTransformation());
 		artifact = register(new MOBaseItem("artifact"));
 		if (MatterOverdrive.CONFIG_HANDLER.showInDevItems) {

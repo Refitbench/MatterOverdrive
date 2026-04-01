@@ -12,6 +12,20 @@
 Matter Overdrive is a Minecraft mod inspired by the popular Sci-fi TV series Star Trek. It dwells in the concept of replicating and transforming one type matter into another.
 Although it may seem overpowered, Matter Overdrive takes a more realistic approach and requires the player to build a complex system before even the simplest replication can be achieved.
 
+## Refit Differences
+* Optimized every machine block, remove redundant code, cache states for huge idle overhead gains.
+* Optimized cables, instead of checking every tick for neighbors, we cache it.
+* Vastly improved and optimized the Anomaly, cache states and queue lookups (configurable).
+* Removed items and server logic for incomplete features. (StarMap / Grav Generator).
+* Completed the in-progress Tritanium Crate, its now a single block and accepts dye.
+* New config options for balance and tinkering by users and modpacks.
+* Register items properly, so they show up in the same place, as it should have been.
+* Better organize items and blocks to make a bit more logical sense.
+* Implemented HEI's collapsible group support.
+* Pattern Monitor allows managing tasks from networked replicators.
+* Replication requests can be infinite (-1), configurable by server host.
+* Bug fixes, fixed a fair amount of bugs and exploits.
+
 ## Mod-Links
 * [Discord](https://discord.gg/sgQxDJdrnY)
 
