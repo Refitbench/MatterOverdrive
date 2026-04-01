@@ -26,6 +26,7 @@ Although it may seem overpowered, Matter Overdrive takes a more realistic approa
 * Pattern Monitor allows managing tasks from networked replicators.
 * Replication requests can be infinite (-1), configurable by server host.
 * Bug fixes, fixed a fair amount of bugs and exploits.
+* New replication effects and sounds.
 
 ## Mod-Links
 * [Discord](https://discord.gg/sgQxDJdrnY)

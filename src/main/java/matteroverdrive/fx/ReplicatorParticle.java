@@ -25,7 +25,7 @@ public class ReplicatorParticle extends Particle {
 		this.motionX = this.motionX * 0.009999999776482582D + xSpeed;
 		this.motionY = this.motionY * 0.009999999776482582D + ySpeed;
 		this.motionZ = this.motionZ * 0.009999999776482582D + zSpeed;
-		this.flameScale = this.particleScale * 0.3f; // Much smaller for TNG effect
+		this.flameScale = this.particleScale * 0.3f;
 		this.particleScale = this.flameScale;
 		this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
 		this.particleAlpha = 0.0F; // Start transparent for fade-in
@@ -147,7 +147,7 @@ public class ReplicatorParticle extends Particle {
 	}
 
 	/**
-	 * Set custom color for the particle (for blueish-white TNG effect)
+	 * Set custom color for the particle (for blueish-white)
 	 */
 	public void setColor(float red, float green, float blue) {
 		this.targetRed = red;

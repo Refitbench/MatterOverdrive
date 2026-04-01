@@ -65,12 +65,10 @@ public class TileEntityRendererReplicator extends TileEntitySpecialRenderer<Tile
 		Minecraft.getMinecraft().getRenderManager().renderEntity(
 				itemEntity, x + 0.5d, y + 0.05, z + 0.5, 0, 0, false);
 
-		// Restore default blend function and re-enable alpha test
-		GlStateManager.tryBlendFuncSeparate(
-				GlStateManager.SourceFactor.SRC_ALPHA,
-				GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA,
-				GlStateManager.SourceFactor.ONE,
-				GlStateManager.DestFactor.ZERO);
+		// Restore GL state — must use raw GL calls to match how we set them,
+		// because GlStateManager's cache doesn't track glBlendFunc/glBlendColor.
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+		GL14.glBlendColor(0.0f, 0.0f, 0.0f, 1.0f);
 		GlStateManager.enableAlpha();
 		GlStateManager.disableBlend();
 	}

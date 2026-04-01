@@ -6,6 +6,11 @@
     "scanner_fail": {"category": "player","sounds": [{"name": "matteroverdrive:matter_scanner/scanner_fail", "stream": false}]},
     "scanner_scanning": {"category": "player","sounds": [{"name": "matteroverdrive:matter_scanner/scanner_scanning", "stream": false}]},
     "replicate_success": {"category": "block","sounds": [{"name": "matteroverdrive:replicator/replicate_success", "stream": false}]},
+    "replicate_fail": {"category": "block","sounds": [
+      {"name": "matteroverdrive:error1", "stream": false},
+      {"name": "matteroverdrive:error2", "stream": false},
+      {"name": "matteroverdrive:error3", "stream": false}
+    ]},
     "analyzer": {"category": "block","sounds": [{"name": "matteroverdrive:blocks/analyzer", "stream": false}]},
     "decomposer": {"category": "block","sounds": [{"name": "matteroverdrive:blocks/decomposer", "stream": false}]},
     "machine": {"category": "block","sounds": [{"name": "matteroverdrive:blocks/machine", "stream": false}]},
