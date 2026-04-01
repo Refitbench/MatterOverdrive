@@ -14,8 +14,10 @@ import matteroverdrive.data.inventory.DatabaseSlot;
 import matteroverdrive.data.inventory.RemoveOnlySlot;
 import matteroverdrive.data.inventory.ShieldingSlot;
 import matteroverdrive.data.transport.MatterNetwork;
-import matteroverdrive.fx.ReplicatorParticle;
+import matteroverdrive.client.render.RenderParticlesHandler;
+import matteroverdrive.fx.ReplicatorSparkParticle;
 import matteroverdrive.init.MatterOverdriveSounds;
+import matteroverdrive.proxy.ClientProxy;
 import matteroverdrive.machines.components.ComponentMatterNetworkConfigs;
 import matteroverdrive.machines.events.MachineEvent;
 import matteroverdrive.matter_network.MatterNetworkTaskQueue;
@@ -25,7 +27,6 @@ import matteroverdrive.tile.MOTileEntityMachineMatter;
 import matteroverdrive.util.MOBlockHelper;
 import matteroverdrive.util.math.MOMathHelper;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
@@ -65,6 +66,8 @@ public class TileEntityMachineReplicator extends MOTileEntityMachineMatter
 	private boolean isPlayingReplicateAnimation;
 	@SideOnly(Side.CLIENT)
 	private int replicateAnimationCounter;
+	@SideOnly(Side.CLIENT)
+	private ItemStack ghostItem = ItemStack.EMPTY;
 
 	private ComponentMatterNetworkReplicator networkComponent;
 	private ComponentTaskProcessingReplicator taskProcessingComponent;
@@ -125,8 +128,23 @@ public class TileEntityMachineReplicator extends MOTileEntityMachineMatter
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void beginSpawnParticles() {
+	public void beginSpawnParticles(ItemStack item) {
+		// Only show the fade-in if the output slot is currently empty;
+		// if something is already there, just play the particles.
+		if (getStackInSlot(OUTPUT_SLOT_ID).isEmpty()) {
+			ghostItem = item;
+		}
 		replicateAnimationCounter = REPLICATION_ANIMATION_TIME;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public ItemStack getGhostItem() {
+		return ghostItem;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public float getReplicationProgress() {
+		return (REPLICATION_ANIMATION_TIME - replicateAnimationCounter) / (float) REPLICATION_ANIMATION_TIME;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -139,6 +157,7 @@ public class TileEntityMachineReplicator extends MOTileEntityMachineMatter
 			if (isPlayingReplicateAnimation) {
 				// sync with server so that the replicated item will be seen
 				isPlayingReplicateAnimation = false;
+				ghostItem = ItemStack.EMPTY;
 				forceSync();
 			}
 		}
@@ -194,27 +213,38 @@ public class TileEntityMachineReplicator extends MOTileEntityMachineMatter
 
 	@SideOnly(Side.CLIENT)
 	public void SpawnReplicateParticles(int startTime) {
-		double time = (double) (startTime) / (double) (REPLICATION_ANIMATION_TIME);
-		double gravity = MOMathHelper.easeIn(time, 0.02, 0.2, 1);
-		int age = (int) Math.round(MOMathHelper.easeIn(time, 2, 10, 1));
-		int count = (int) Math.round(MOMathHelper.easeIn(time, 1, 20, 1));
+		double time = (double) startTime / (double) REPLICATION_ANIMATION_TIME;
+		// Ramp up spark count as item materialises
+		int count = 1 + (int) Math.round(MOMathHelper.easeIn(time, 0, 22, 1));
+		// Spawn radius contracts as the item forms (particles converge)
+		double radius = 0.45 - 0.25 * time;
 
 		for (int i = 0; i < count; i++) {
-			float speed = 0.05f;
+			Vector3f pos = MOMathHelper.randomSpherePoint(
+					this.getPos().getX() + 0.5D,
+					this.getPos().getY() + 0.5D,
+					this.getPos().getZ() + 0.5D,
+					new Vec3d(radius, radius, radius), this.world.rand);
 
-			Vector3f pos = MOMathHelper.randomSpherePoint(this.getPos().getX() + 0.5D, this.getPos().getY() + 0.5D,
-					this.getPos().getZ() + 0.5D, new Vec3d(0.5, 0.5, 0.5), this.world.rand);
-			Vector3f dir = new Vector3f(random.nextFloat() * 2 - 1, (random.nextFloat() * 2 - 1) * 0.05f,
-					random.nextFloat() * 2 - 1);
-			dir.scale(speed);
-			ReplicatorParticle replicatorParticle = new ReplicatorParticle(this.world, pos.getX(), pos.getY(),
-					pos.getZ(), dir.getX(), dir.getY(), dir.getZ());
-			replicatorParticle.setCenter(this.getPos().getX() + 0.5D, this.getPos().getY() + 0.5D,
+			// Gentle initial drift
+			double speed = 0.006 + random.nextDouble() * 0.014;
+			double vx = (random.nextDouble() * 2 - 1) * speed;
+			double vy = (random.nextDouble() * 2 - 1) * speed;
+			double vz = (random.nextDouble() * 2 - 1) * speed;
+
+			// blueish-white palette with slight variation
+			float r = 0.50f + random.nextFloat() * 0.40f; // 0.50–0.90
+			float g = 0.70f + random.nextFloat() * 0.30f; // 0.70–1.00
+			float b = 1.0f;
+
+			ReplicatorSparkParticle spark = new ReplicatorSparkParticle(
+					this.world, pos.x, pos.y, pos.z, vx, vy, vz, r, g, b);
+			spark.setCenter(
+					this.getPos().getX() + 0.5D,
+					this.getPos().getY() + 0.5D,
 					this.getPos().getZ() + 0.5D);
-
-			replicatorParticle.setParticleAge(age);
-			replicatorParticle.setPointGravityScale(gravity);
-			Minecraft.getMinecraft().effectRenderer.addEffect(replicatorParticle);
+			ClientProxy.renderHandler.getRenderParticlesHandler()
+					.addEffect(spark, RenderParticlesHandler.Blending.Additive);
 		}
 	}
 

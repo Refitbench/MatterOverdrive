@@ -14,6 +14,10 @@ public class ReplicatorParticle extends Particle {
 	private final float flameScale;
 	private double centerX, centerY, centerZ;
 	private double pointGravityScale = 1.0D;
+	private float targetRed = 1.0F;
+	private float targetGreen = 1.0F;
+	private float targetBlue = 1.0F;
+	private boolean hasCustomColor = false;
 
 	public ReplicatorParticle(World world, double posX, double posY, double posZ, double xSpeed, double ySpeed,
 			double zSpeed) {
@@ -21,8 +25,10 @@ public class ReplicatorParticle extends Particle {
 		this.motionX = this.motionX * 0.009999999776482582D + xSpeed;
 		this.motionY = this.motionY * 0.009999999776482582D + ySpeed;
 		this.motionZ = this.motionZ * 0.009999999776482582D + zSpeed;
-		this.flameScale = this.particleScale;
+		this.flameScale = this.particleScale * 0.3f; // Much smaller for TNG effect
+		this.particleScale = this.flameScale;
 		this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
+		this.particleAlpha = 0.0F; // Start transparent for fade-in
 		this.particleMaxAge = (int) (8.0D / (Math.random() * 0.8D + 0.2D)) + 4;
 		this.setParticleTextureIndex(1);
 	}
@@ -31,7 +37,16 @@ public class ReplicatorParticle extends Particle {
 	public void renderParticle(BufferBuilder buffer, Entity entity, float partialTicks, float rotationX,
 			float rotationZ, float rotationYZ, float rotationXY, float rotationXZ) {
 		float f6 = ((float) this.particleAge + partialTicks) / (float) this.particleMaxAge;
-		this.particleScale = this.flameScale * (1.0F - f6 * f6 * 0.5F);
+		
+		// Fade in at start, then out at end
+		float fadeIn = Math.min(f6 * 3.0F, 1.0F); // Fade in over first third
+		float fadeOut = Math.max(1.0F - (f6 - 0.7F) / 0.3F, 0.0F); // Fade out in last 30%
+		this.particleAlpha = fadeIn * fadeOut;
+		
+		// Scale with pulsing effect for sparkle
+		float pulseEffect = 0.8F + (float) Math.sin(f6 * (float) Math.PI * 4.0F) * 0.2F;
+		this.particleScale = this.flameScale * pulseEffect;
+		
 		super.renderParticle(buffer, entity, partialTicks, rotationX, rotationZ, rotationYZ, rotationXY, rotationXZ);
 	}
 
@@ -129,5 +144,24 @@ public class ReplicatorParticle extends Particle {
 
 	public void setPointGravityScale(double pointGravityScale) {
 		this.pointGravityScale = pointGravityScale;
+	}
+
+	/**
+	 * Set custom color for the particle (for blueish-white TNG effect)
+	 */
+	public void setColor(float red, float green, float blue) {
+		this.targetRed = red;
+		this.targetGreen = green;
+		this.targetBlue = blue;
+		this.hasCustomColor = true;
+		updateColor();
+	}
+
+	private void updateColor() {
+		if (hasCustomColor) {
+			this.particleRed = targetRed;
+			this.particleGreen = targetGreen;
+			this.particleBlue = targetBlue;
+		}
 	}
 }

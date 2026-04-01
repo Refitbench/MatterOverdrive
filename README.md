@@ -4,6 +4,7 @@
 
 ## Table of Contents
 * [About](#about)
+* [Improvements](#refit-differences)
 * [Mod-Links](#mod-links)
 * [Features](#features)
 * [Issues](#issues)

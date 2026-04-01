@@ -77,7 +77,7 @@ public class ComponentTaskProcessingReplicator extends
 						if (this.replicateTime >= time) {
 							this.replicateTime = 0;
 							boolean replicationSucceeded = this.replicateItem(replicatePattern.getPattern(), patternStack);
-							MatterOverdrive.NETWORK.sendToDimention(new PacketReplicationComplete(machine), getWorld());
+							MatterOverdrive.NETWORK.sendToDimention(new PacketReplicationComplete(machine, patternStack), getWorld());
 
 							TileEntity TE = getWorld().getTileEntity(getPos());
 
