@@ -39,6 +39,7 @@ public class TileEntityMachineChargingStation extends MOTileEntityMachineEnergy 
 	private MachineSound alcoveLoopSound = null;
 	// Server-side latch: players whose charge session is in progress
 	private final Set<UUID> chargingPlayers = new HashSet<>();
+	private final Set<UUID> presentPlayers = new HashSet<>();
 
 	public TileEntityMachineChargingStation() {
 		super(2);
@@ -57,13 +58,19 @@ public class TileEntityMachineChargingStation extends MOTileEntityMachineEnergy 
 
 	private void manageAndroidCharging() {
 		if (world.isRemote) return;
+		if (getEnergyStorage().getEnergyStored() <= 0) {
+			if (isActivelyCharging) {
+				isActivelyCharging = false;
+			}
+			return;
+		}
 		boolean nowCharging = false;
 		if (getEnergyStorage().getEnergyStored() > 0) {
 			int range = getRange();
 			AxisAlignedBB radius = new AxisAlignedBB(getPos().add(-range, -range, -range),
 					getPos().add(range, range, range));
 			List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, radius);
-			Set<UUID> presentPlayers = new HashSet<>();
+			presentPlayers.clear();
 			for (EntityPlayer player : players) {
 				AndroidPlayer android = MOPlayerCapabilityProvider.GetAndroidCapability(player);
 				if (!android.isAndroid()) continue;

@@ -106,6 +106,7 @@ public class AndroidPlayer implements IEnergyStorage, IAndroid {
 	private final Map<String, Integer> unlockedLevels = new HashMap<>();
 	private int maxEnergy;
 	private boolean isAndroid;
+	private long lastBatterySyncTick = -20L;
 	private boolean bionicSlotsDirty = true;
 	private boolean hasRunOutOfPower;
 	private final AndroidEffects androidEffects;
@@ -270,9 +271,11 @@ public class AndroidPlayer implements IEnergyStorage, IAndroid {
 		if (dataTypes.contains(DataType.STATS)) {
 			prop.setTag(NBT_STATS, unlocked);
 		}
-		NBTTagCompound effects = new NBTTagCompound();
-		getAndroidEffects().writeToNBT(effects);
-		prop.setTag("effects", effects);
+		if (dataTypes.contains(DataType.EFFECTS)) {
+			NBTTagCompound effects = new NBTTagCompound();
+			getAndroidEffects().writeToNBT(effects);
+			prop.setTag("effects", effects);
+		}
 
 		if (dataTypes.contains(DataType.ACTIVE_ABILITY)) {
 			if (activeStat != null) {
@@ -440,7 +443,13 @@ public class AndroidPlayer implements IEnergyStorage, IAndroid {
 			ItemStack battery = getStackInSlot(ENERGY_SLOT);
 			IEnergyStorage energyContainerItem = battery.getCapability(CapabilityEnergy.ENERGY, null);
 			energyReceived = energyContainerItem.receiveEnergy(amount, simulate);
-			sync(EnumSet.of(DataType.BATTERY));
+			if (!simulate) {
+				long now = player.world.getTotalWorldTime();
+				if (now - lastBatterySyncTick >= 20L) {
+					lastBatterySyncTick = now;
+					sync(EnumSet.of(DataType.BATTERY));
+				}
+			}
 		} else {
 			int energy = this.player.getDataManager().get(ENERGY);
 			energyReceived = Math.min(Math.min(getMaxEnergyStored() - energy, amount), BUILTIN_ENERGY_TRANSFER);
