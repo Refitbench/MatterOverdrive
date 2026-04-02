@@ -77,22 +77,25 @@ public class PlayerEventHandler {
 			}
 		}
 
-		AndroidPlayer player = MOPlayerCapabilityProvider.GetAndroidCapability(event.player);
-		if (player != null && event.phase.equals(TickEvent.Phase.START)) {
-			if (event.side == Side.CLIENT) {
-				onAndroidTickClient(player, event);
-
-			} else {
-				onAndroidServerTick(player, event);
+		// Capability lookups are gated on phase first so they are not performed on
+		// the END phase, which would double all per-tick work for every player.
+		if (event.phase == Phase.START) {
+			AndroidPlayer player = MOPlayerCapabilityProvider.GetAndroidCapability(event.player);
+			if (player != null) {
+				if (event.side == Side.CLIENT) {
+					onAndroidTickClient(player, event);
+				} else {
+					onAndroidServerTick(player, event);
+				}
 			}
-		}
 
-		OverdriveExtendedProperties extendedProperties = MOPlayerCapabilityProvider.GetExtendedCapability(event.player);
-		if (extendedProperties != null && event.phase.equals(TickEvent.Phase.START)) {
-			if (event.side == Side.CLIENT) {
-				extendedProperties.update(Side.CLIENT);
-			} else {
-				extendedProperties.update(Side.SERVER);
+			OverdriveExtendedProperties extendedProperties = MOPlayerCapabilityProvider.GetExtendedCapability(event.player);
+			if (extendedProperties != null) {
+				if (event.side == Side.CLIENT) {
+					extendedProperties.update(Side.CLIENT);
+				} else {
+					extendedProperties.update(Side.SERVER);
+				}
 			}
 		}
 	}
@@ -118,6 +121,8 @@ public class PlayerEventHandler {
 
 	@SubscribeEvent
 	public void onStartTracking(net.minecraftforge.event.entity.player.PlayerEvent.StartTracking event) {
+		// Only sync android/quest state when the tracked entity is itself a player.
+		if (!(event.getTarget() instanceof EntityPlayerMP)) return;
 		if (event.getEntityPlayer() != null) {
 			AndroidPlayer androidPlayer = MOPlayerCapabilityProvider.GetAndroidCapability(event.getEntityPlayer());
 			if (androidPlayer != null && androidPlayer.isAndroid()) {
