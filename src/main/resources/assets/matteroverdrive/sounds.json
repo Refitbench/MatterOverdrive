@@ -99,5 +99,8 @@
       {"name": "matteroverdrive:blocks/pylon/electric_arc_3", "stream": false}
     ]},
     "blocks.pylon": {"category": "block","sounds": [{"name": "matteroverdrive:blocks/pylon/pylon", "stream": false}]},
-    "weapons.explosive_shot": {"category": "player","sounds": [{"name": "matteroverdrive:weapon/explosive_shot", "stream": false}]}
+    "weapons.explosive_shot": {"category": "player","sounds": [{"name": "matteroverdrive:weapon/explosive_shot", "stream": false}]},
+    "blocks.alcove.start": {"category": "block","sounds": [{"name": "matteroverdrive:alcove/alcove_start", "stream": false}]},
+    "blocks.alcove.loop":  {"category": "block","sounds": [{"name": "matteroverdrive:alcove/alcove_loop",  "stream": true}]},
+    "blocks.alcove.stop":  {"category": "block","sounds": [{"name": "matteroverdrive:alcove/alcove_stop",  "stream": false}]}
 }

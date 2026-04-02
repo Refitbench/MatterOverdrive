@@ -49,6 +49,7 @@ import matteroverdrive.client.render.entity.EntityRendererPhaserFire;
 import matteroverdrive.client.render.entity.EntityRendererRangedRougeAndroid;
 import matteroverdrive.client.render.entity.EntityRendererRougeAndroid;
 import matteroverdrive.client.render.tileentity.TileEntityRendererAndroidStation;
+import matteroverdrive.client.render.tileentity.TileEntityRendererChargingStation;
 import matteroverdrive.client.render.tileentity.TileEntityRendererContractMarket;
 import matteroverdrive.client.render.tileentity.TileEntityRendererFusionReactorController;
 import matteroverdrive.client.render.tileentity.TileEntityRendererGravitationalAnomaly;
@@ -110,6 +111,7 @@ import matteroverdrive.tile.TileEntityAndroidStation;
 import matteroverdrive.tile.TileEntityGravitationalAnomaly;
 import matteroverdrive.tile.TileEntityHoloSign;
 import matteroverdrive.tile.TileEntityInscriber;
+import matteroverdrive.tile.TileEntityMachineChargingStation;
 import matteroverdrive.tile.TileEntityMachineContractMarket;
 import matteroverdrive.tile.TileEntityMachineGravitationalStabilizer;
 import matteroverdrive.tile.TileEntityMachinePacketQueue;
@@ -211,6 +213,7 @@ public class RenderHandler {
 	private TileEntityRendererHoloSign tileEntityRendererHoloSign;
 	private TileEntityRendererPacketQueue tileEntityRendererPacketQueue;
 	private TileEntityRendererInscriber tileEntityRendererInscriber;
+	private TileEntityRendererChargingStation tileEntityRendererChargingStation;
 	private TileEntityRendererContractMarket tileEntityRendererContractMarket;
 
 	public RenderHandler() {
@@ -303,6 +306,7 @@ public class RenderHandler {
 		tileEntityRendererPacketQueue = new TileEntityRendererPacketQueue();
 		tileEntityRendererInscriber = new TileEntityRendererInscriber();
 		tileEntityRendererContractMarket = new TileEntityRendererContractMarket();
+		tileEntityRendererChargingStation = new TileEntityRendererChargingStation();
 
 		configHandler.subscribe(tileEntityRendererAndroidStation);
 		configHandler.subscribe(tileEntityRendererWeaponStation);
@@ -396,6 +400,8 @@ public class RenderHandler {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityInscriber.class, tileEntityRendererInscriber);
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineContractMarket.class,
 				tileEntityRendererContractMarket);
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityMachineChargingStation.class,
+				tileEntityRendererChargingStation);
 	}
 
 	public void registerBlockColors() {
