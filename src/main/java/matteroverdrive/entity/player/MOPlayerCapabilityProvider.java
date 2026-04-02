@@ -24,9 +24,7 @@ public class MOPlayerCapabilityProvider implements ICapabilitySerializable<NBTTa
 	public static AndroidPlayer GetAndroidCapability(Entity entity) {
 		if (entity == null)
 			return null;
-		return entity.hasCapability(AndroidPlayer.CAPABILITY, null)
-				? entity.getCapability(AndroidPlayer.CAPABILITY, null)
-				: null;
+		return entity.getCapability(AndroidPlayer.CAPABILITY, null);
 	}
 
 	public static OverdriveExtendedProperties GetExtendedCapability(Entity entity) {
