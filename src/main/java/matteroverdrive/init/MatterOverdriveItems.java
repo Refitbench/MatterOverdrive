@@ -201,7 +201,8 @@ public class MatterOverdriveItems {
 		portableDecomposer = register(new PortableDecomposer("portable_decomposer"));
 		MatterOverdrive.CONFIG_HANDLER.subscribe(portableDecomposer);
 		spacetime_equalizer = register(new SpacetimeEqualizer("spacetime_equalizer"));
-        
+		MatterOverdrive.CONFIG_HANDLER.subscribe(spacetime_equalizer);
+
 //		Weapons
 		phaser = register(new Phaser("phaser"));
 		phaserRifle = register(new PhaserRifle("phaser_rifle"));

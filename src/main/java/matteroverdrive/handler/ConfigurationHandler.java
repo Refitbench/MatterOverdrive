@@ -98,6 +98,7 @@ public class ConfigurationHandler {
 	public static final String KEY_GRAVITATIONAL_ANOMALY_IDLE_SCAN_TICKS = "idle scan ticks";
 	public static final String KEY_GRAVITATIONAL_ANOMALY_ENTITY_SCAN_RATE = "entity scan rate";
 	public static final String KEY_GRAVITATIONAL_ANOMALY_DEBUG_SCAN_WIREFRAME = "gravitational anomaly scan wireframe debug";
+	public static final String KEY_EQUALIZER_DAMAGE_RATE = "equalizer damage rate";
 	public static final String KEY_GRAVITATIONAL_STABILIZER_ENERGY_CAPACITY = "gravitational stabilizer energy capacity";
 	public static final String KEY_GRAVITATIONAL_STABILIZER_MAX_ENERGY_RECEIVE = "gravitational stabilizer max energy receive";
 	public static final String KEY_GRAVITATIONAL_STABILIZER_BASE_ENERGY_PER_TICK = "gravitational stabilizer base energy per tick";
