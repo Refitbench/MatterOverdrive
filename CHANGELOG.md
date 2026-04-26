@@ -1,4 +1,9 @@
 # Changelog
+## [1.0.2] - 
+### Fixed
+- Corrected the project and update URLs.
+- An attempt of semi-automated FML changelog / update json generation.
+
 ## [1.0.1] - 2026-03-31
 - First build under Refitbench.
 
