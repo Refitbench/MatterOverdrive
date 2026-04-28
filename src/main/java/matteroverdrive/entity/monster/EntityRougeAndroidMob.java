@@ -289,7 +289,10 @@ public class EntityRougeAndroidMob extends EntityMob
 
 	@Override
 	public boolean isWithinHomeDistanceFromPosition(BlockPos pos) {
-		return this.getHomePosition().distanceSq(pos) < (double) (maxPathTargetRangeSq * maxPathTargetRangeSq);
+		if (path == null) {
+			return true;
+		}
+		return this.getHomePosition().distanceSq(pos) < (double) maxPathTargetRangeSq;
 	}
 
 	@Override

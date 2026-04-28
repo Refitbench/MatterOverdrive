@@ -1,4 +1,8 @@
 # IDEAS / TODO
+- Rework android AI?
+-   "borg" might be passive unless provoked outside of its home range.
+-   Currently androids without home attack on sight.
+
 - Fix / Overhaul spacetime accelerator
 
 - Add a way to clear/edit pattern disks.

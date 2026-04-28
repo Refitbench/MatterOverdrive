@@ -11,6 +11,6 @@ public class EntityAIAndroidAttackOnCollide extends EntityAIAttackMelee {
 
 	@Override
 	public void resetTask() {
-
+		super.resetTask();
 	}
 }

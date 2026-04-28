@@ -1,4 +1,8 @@
 # Changelog
+## [1.0.3] -
+### Fixed
+- Fixed natural and player spawned androids never attacking.
+
 ## [1.0.2] - 2026-04-27
 ### Fixed
 - Corrected the project and update URLs.
