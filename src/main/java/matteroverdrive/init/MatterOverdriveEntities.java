@@ -12,7 +12,6 @@ import matteroverdrive.handler.village.VillageCreatationMadScientist;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
@@ -35,7 +34,7 @@ public class MatterOverdriveEntities {
 		configurationHandler.subscribe(rogueandroid);
 	}
 
-	public static void register(FMLPostInitializationEvent event) {
+	public static void register() {
 		MatterOverdrive.CONFIG_HANDLER.config.load();
 		int id = 0;
 		addEntity(EntityFailedPig.class, "failed_pig", 15771042, 0x33CC33, id++);

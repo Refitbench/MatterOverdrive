@@ -163,6 +163,7 @@ public class MatterOverdrive {
 		MinecraftForge.EVENT_BUS.register(BLOCK_HANDLER);
 
 		MatterOverdriveEntities.init(event, CONFIG_HANDLER);
+		MatterOverdriveEntities.register();
 		MatterOverdriveEnchantments.init(event, CONFIG_HANDLER);
 		MO_WORLD.init(CONFIG_HANDLER);
 		MatterNetworkRegistry.register();
@@ -205,7 +206,6 @@ public class MatterOverdrive {
 	public void postInit(FMLPostInitializationEvent event) {
 		PROXY.postInit(event);
 		MatterOverdriveCompat.postInit(event);
-		MatterOverdriveEntities.register(event);
 		ITEMS.addToDungons();
 
 		QUEST_ASSEMBLER.loadQuests(QUESTS);
