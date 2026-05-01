@@ -4,21 +4,19 @@ package matteroverdrive;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import matteroverdrive.client.data.Color;
+import matteroverdrive.matteroverdrive.Tags;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class Reference {
 	public static final String MOD_ID = "matteroverdrive";
-	public static final String MOD_NAME = "MatterOverdrive: Community Edition";
-	public static final String VERSION = "@VERSION@";
-	public static final String VERSION_DATE = "@DATE@";
+	public static final String MOD_NAME = "MatterOverdrive: Refitted";
+	public static final String VERSION = Tags.VERSION;
 	public static final String GUI_FACTORY_CLASS = "matteroverdrive.gui.GuiConfigFactory";
 	public static final String DEPENDENCIES = "";
 	public static final String CHANNEL_NAME = "mo_channel";
 	public static final String CHANNEL_WEAPONS_NAME = CHANNEL_NAME + ":weapons";
 	public static final String CHANNEL_GUI_NAME = CHANNEL_NAME + ":gui";
-	public static final String VERSIONS_CHECK_URL = "https://api.cfwidget.com/557428";
-	public static final String BETA_CHECK_URL = "http://maven.k-4u.nl/matteroverdrive/MatterOverdrive/maven-metadata.xml";
-	public static final String DOWNLOAD_URL = "https://www.curseforge.com/minecraft/mc-mods/matter-overdrive-community-edition";
+	public static final String DOWNLOAD_URL = "https://www.curseforge.com/minecraft/mc-mods/matter-overdrive-refitted";
 	public static final String PATH_GFX = MOD_ID + ":textures/";
 	public static final String PATH_WORLD_TEXTURES = PATH_GFX + "world/";
 	public static final String PATH_ARMOR = PATH_GFX + "armor/";

@@ -44,7 +44,7 @@ import java.util.concurrent.Executors;
 
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY_CLASS, dependencies = Reference.DEPENDENCIES)
+@Mod(modid = Reference.MOD_ID, name = Reference.MOD_NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY_CLASS, dependencies = Reference.DEPENDENCIES, updateJSON = matteroverdrive.matteroverdrive.Tags.UPDATE_JSON)
 public class MatterOverdrive {
 	public static final ExecutorService THREAD_POOL = Executors.newFixedThreadPool(2);
 
