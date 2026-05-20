@@ -1,6 +1,8 @@
 package matteroverdrive.data.biostats;
 
 import com.google.common.collect.Multimap;
+import matteroverdrive.compat.modules.sd.CompatSD;
+import matteroverdrive.compat.modules.sd.SDHelper;
 import matteroverdrive.compat.modules.tan.CompatTAN;
 import matteroverdrive.compat.modules.tan.TANHelper;
 import matteroverdrive.client.render.HoloIcons;
@@ -25,10 +27,15 @@ public class BioticStatTANTemperature extends AbstractBioticStat {
 
     @Override
     public void onAndroidUpdate(AndroidPlayer android, int level) {
-        if (TANHelper.isLoaded && !android.getPlayer().world.isRemote
+        if (!android.getPlayer().world.isRemote
                 && android.getPlayer().ticksExisted % 29 == 0
                 && isEnabled(android, level)) {
-            CompatTAN.suppressTemperature(android, TANHelper.temperatureEnergyCost);
+            if (TANHelper.isLoaded) {
+                CompatTAN.suppressTemperature(android, TANHelper.temperatureEnergyCost);
+            }
+            if (SDHelper.isLoaded) {
+                CompatSD.suppressTemperature(android, SDHelper.temperatureEnergyCost);
+            }
         }
     }
 

@@ -25,6 +25,9 @@ public class MixinPlugin implements IMixinConfigPlugin {
         if (mixinClassName.contains(".tan.")) {
             return Loader.isModLoaded("toughasnails");
         }
+        if (mixinClassName.contains(".sd.")) {
+            return Loader.isModLoaded("simpledifficulty");
+        }
         return true;
     }
 

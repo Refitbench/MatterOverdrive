@@ -17,6 +17,7 @@ import matteroverdrive.gui.element.*;
 import matteroverdrive.gui.element.android_station.ElementBioStat;
 import matteroverdrive.handler.ConfigurationHandler;
 import matteroverdrive.init.OverdriveBioticStats;
+import matteroverdrive.compat.modules.sd.SDHelper;
 import matteroverdrive.compat.modules.tan.TANHelper;
 import matteroverdrive.proxy.ClientProxy;
 import matteroverdrive.tile.TileEntityAndroidStation;
@@ -80,7 +81,7 @@ public class GuiAndroidStation extends MOGuiMachine<TileEntityAndroidStation> {
 		addStat(androidPlayer, OverdriveBioticStats.autoShield, 1, 2, EnumFacing.WEST);
 		addStat(androidPlayer, OverdriveBioticStats.stepAssist, 5, 0, null);
 		addStat(androidPlayer, OverdriveBioticStats.zeroCalories, 4, 2, null);
-		if (TANHelper.isLoaded) {
+		if (TANHelper.isLoaded || SDHelper.isLoaded) {
 			addStat(androidPlayer, OverdriveBioticStats.tanTemperature, 5, 2, EnumFacing.WEST);
 		}
 		addStat(androidPlayer, OverdriveBioticStats.wirelessCharger, 1, 3, null);

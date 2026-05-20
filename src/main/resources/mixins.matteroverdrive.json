@@ -9,6 +9,7 @@
 	"mixins": [],
 	"server": [],
 	"client": [
-		"client.tan.MixinTemperatureOverlayHandler"
+		"client.tan.MixinTemperatureOverlayHandler",
+		"client.sd.MixinTemperatureGui"
 	]
 }

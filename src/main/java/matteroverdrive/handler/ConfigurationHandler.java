@@ -201,10 +201,10 @@ public class ConfigurationHandler {
 		updateCategoryLang(category);
 
 		category = config.getCategory(CATEGORY_COMPATIBILITY_TAN);
-		category.setComment("Tough As Nails compatibility options.");
+		category.setComment("Tough As Nails / Simple Difficulty compatibility options.");
 		updateCategoryLang(category);
 		tanCompatEnabled = config.getBoolean(KEY_TAN_ENABLED, CATEGORY_COMPATIBILITY_TAN, true,
-				"Enable Tough As Nails compatibility");
+				"Enable Tough As Nails / Simple Difficulty compatibility");
 		tanThirstEnergyCost = config.getInt(KEY_TAN_THIRST_ENERGY_COST, CATEGORY_COMPATIBILITY_TAN, 256, 1, 512000,
 				"Energy cost in RF per thirst point restored by the Zero Calories ability. "
 				+ "The thirst bar has 20 points. Default: 256 RF/point. Max: 512000.");

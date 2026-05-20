@@ -2,6 +2,8 @@
 package matteroverdrive.data.biostats;
 
 import com.google.common.collect.Multimap;
+import matteroverdrive.compat.modules.sd.CompatSD;
+import matteroverdrive.compat.modules.sd.SDHelper;
 import matteroverdrive.compat.modules.tan.CompatTAN;
 import matteroverdrive.compat.modules.tan.TANHelper;
 import matteroverdrive.entity.android_player.AndroidPlayer;
@@ -24,6 +26,9 @@ public class BioticStatZeroCalories extends AbstractBioticStat {
 		}
 		if (TANHelper.enabled && !android.getPlayer().world.isRemote && isEnabled(android, level)) {
 			CompatTAN.suppressThirst(android, TANHelper.thirstEnergyCost);
+		}
+		if (SDHelper.enabled && !android.getPlayer().world.isRemote && isEnabled(android, level)) {
+			CompatSD.suppressThirst(android, SDHelper.thirstEnergyCost);
 		}
 	}
 
