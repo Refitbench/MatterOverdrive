@@ -1,4 +1,12 @@
 # Changelog
+## [1.2.0] - 2026-05-20
+### Added
+- Added SimpleDifficulty compatibility, uses same config options as ToughAsNails.
+### Fixed
+- Removed empty creative tabs from starmap when starmap is disabled.
+### Changed
+- Android mob weight of 0 will disable spawns instead of inserting a 0 weight entry.
+
 ## [1.1.0] - 2026-05-09
 ### Added
 - New Dependancy - MixinBooter for Tough As Nails compatibility.
