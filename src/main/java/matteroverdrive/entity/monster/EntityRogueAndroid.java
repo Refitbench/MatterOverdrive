@@ -31,6 +31,15 @@ public class EntityRogueAndroid implements IConfigSubscriber {
 		addInBiome(Biome.REGISTRY.iterator());
 	}
 
+	private static void removeFromBiomes(Iterator<Biome> biomes) {
+		while (biomes.hasNext()) {
+			Biome biome = biomes.next();
+			if (biome != null) {
+				biome.getSpawnableList(EnumCreatureType.MONSTER).removeAll(spawnListEntries);
+			}
+		}
+	}
+
 	private static void addInBiome(Iterator<Biome> biomes) {
 		loadBiomeBlacklist(MatterOverdrive.CONFIG_HANDLER);
 		loadBiomesWhitelist(MatterOverdrive.CONFIG_HANDLER);
@@ -110,8 +119,13 @@ public class EntityRogueAndroid implements IConfigSubscriber {
 		int spawn_weight = config.config.getInt("spawn_weight", category, 25, 0, 100,
 				"The spawn weight of Androids. This controls how likely are to be chosen to spawn next.");
 
-		for (Biome.SpawnListEntry entry : spawnListEntries) {
-			entry.itemWeight = spawn_weight;
+		if (spawn_weight == 0) {
+			removeFromBiomes(Biome.REGISTRY.iterator());
+		} else {
+			for (Biome.SpawnListEntry entry : spawnListEntries) {
+				entry.itemWeight = spawn_weight;
+			}
+			addInBiome(Biome.REGISTRY.iterator());
 		}
 
 		loadDimensionBlacklist(config);
