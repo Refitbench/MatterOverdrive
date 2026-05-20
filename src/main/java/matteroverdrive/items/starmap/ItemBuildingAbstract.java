@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 
 public abstract class ItemBuildingAbstract extends ItemBuildableAbstract implements IBuilding {
 
+    @SuppressWarnings("null")
     public ItemBuildingAbstract(String name)
     {
         super(name);

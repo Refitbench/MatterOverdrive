@@ -13,6 +13,7 @@ import javax.annotation.Nullable;
 
 public abstract class ItemShipAbstract extends ItemBuildableAbstract implements IShip
 {
+    @SuppressWarnings("null")
     public ItemShipAbstract(String name)
     {
         super(name);

@@ -28,6 +28,7 @@ import matteroverdrive.util.DialogFactory;
 import matteroverdrive.util.QuestFactory;
 import matteroverdrive.util.WeaponFactory;
 import matteroverdrive.world.MOLootTableManager;
+import javax.annotation.Nullable;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -64,12 +65,6 @@ public class MatterOverdrive {
 	public static final OverdriveTab TAB_OVERDRIVE_FOOD = new OverdriveTab("tabMO_food",
 			() -> new ItemStack(ITEMS.earl_gray_tea));
 	@SuppressWarnings("null")
-	public static final OverdriveTab TAB_OVERDRIVE_SHIPS = new OverdriveTab("tabMO_ships",
-			() -> new ItemStack(ITEMS.colonizerShip));
-	@SuppressWarnings("null")
-	public static final OverdriveTab TAB_OVERDRIVE_BUILDINGS = new OverdriveTab("tabMO_buildings",
-			() -> new ItemStack(ITEMS.buildingBase));
-	@SuppressWarnings("null")
 	public static final OverdriveTab TAB_OVERDRIVE_DECORATIVE = new OverdriveTab("tabMO_decorative",
 			() -> new ItemStack(BLOCKS.decorative_tritanium_plate));
 
@@ -78,6 +73,10 @@ public class MatterOverdrive {
 	
 	//public static final OverdriveTab TAB_OVERDRIVE_ANDROID_PARTS = new OverdriveTab("tabMO_androidParts",
 	//		() -> new ItemStack(ITEMS.androidParts));
+	@Nullable
+	public static OverdriveTab TAB_OVERDRIVE_SHIPS;
+	@Nullable
+	public static OverdriveTab TAB_OVERDRIVE_BUILDINGS;
 	public static final TickHandler TICK_HANDLER;
 	public static final PlayerEventHandler PLAYER_EVENT_HANDLER;
 	public static final ConfigurationHandler CONFIG_HANDLER;
@@ -132,11 +131,17 @@ public class MatterOverdrive {
 		MO_WORLD = new MatterOverdriveWorld(CONFIG_HANDLER);
 	}
 
+	@SuppressWarnings("null")
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 		AndroidPlayer.register();
 		OverdriveExtendedProperties.register();
+
+		if (CONFIG_HANDLER.config.getBoolean(ConfigurationHandler.KEY_STARMAP_ENABLED, ConfigurationHandler.CATEGORY_DEBUG, false, "")) {
+			TAB_OVERDRIVE_SHIPS = new OverdriveTab("tabMO_ships", () -> new ItemStack(ITEMS.colonizerShip));
+			TAB_OVERDRIVE_BUILDINGS = new OverdriveTab("tabMO_buildings", () -> new ItemStack(ITEMS.buildingBase));
+		}
 
 		ITEMS.init();
 		OverdriveFluids.init(event);
