@@ -46,6 +46,9 @@ public class ElementBioStat extends MOElementButton {
 
 	@Override
 	public boolean isEnabled() {
+		if (!MatterOverdrive.STAT_REGISTRY.hasStat(stat.getUnlocalizedName())) {
+			return false;
+		}
 		if (stat.canBeUnlocked(player, level)) {
 			if (player.getUnlockedLevel(stat) < stat.maxLevel()) {
 				return true;
@@ -55,6 +58,11 @@ public class ElementBioStat extends MOElementButton {
 	}
 
 	protected void ApplyColor() {
+		if (!MatterOverdrive.STAT_REGISTRY.hasStat(stat.getUnlocalizedName())) {
+			// Stat was unregistered via script — render grayed out
+			GlStateManager.color(0.4f, 0.4f, 0.4f, 0.4f);
+			return;
+		}
 		if (stat.canBeUnlocked(player, level) || player.isUnlocked(stat, level)) {
 			if (level <= 0) {
 				RenderUtils.applyColorWithMultipy(Reference.COLOR_HOLO, 0.5f);

@@ -54,6 +54,23 @@ public class RecipeManager<M, R extends Recipe<M>> {
 		recipes.add(recipe);
 	}
 
+	/**
+	 * Removes the exact recipe instance from this manager. Returns {@code true}
+	 * if the recipe was present.
+	 */
+	public boolean remove(R recipe) {
+		return recipes.remove(recipe);
+	}
+
+	/**
+	 * Returns the live, mutable backing list. Intended for compatibility layers
+	 * that need to add/remove recipes and snapshot state for reload. External callers should prefer
+	 * {@link #getRecipes()} for read-only access.
+	 */
+	public List<R> getRecipesMutable() {
+		return recipes;
+	}
+
 	public Optional<R> get(M machine) {
 		return recipes.stream().filter(r -> r.matches(machine)).findFirst();
 	}

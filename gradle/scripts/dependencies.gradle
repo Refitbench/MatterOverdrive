@@ -90,6 +90,11 @@ dependencies {
     // Simple Difficulty (optional compile dependency for SD compat module)
     compileOnly rfg.deobf('curse.maven:simple-difficulty-360779:3613814')
 
+    // GroovyScript (optional compile dependency for groovyscript compat module).
+    // Transitives excluded — codechickenlib (a transitive runtime dep of GroovyScript)
+    compileOnly('com.cleanroommc:groovyscript:1.4.3') { transitive = false }
+    runtimeOnly('com.cleanroommc:groovyscript:1.4.3') { transitive = false }
+
     // Common dependency types (configuration):
     // implementation = dependency available at both compile time and runtime
     // runtimeOnly = runtime dependency

@@ -1,4 +1,9 @@
 # Changelog
+## [1.3.0] - 2026-05-26
+### Added
+- GroovyScript compatibility. See [GroovyScript Documentation](https://cleanroommc.com/groovy-script/mods/matteroverdrive)
+- CraftTweaker2 compatibility. See [CraftTweaker Documentation](https://github.com/Refitbench/MatterOverdrive/wiki)
+
 ## [1.2.0] - 2026-05-20
 ### Added
 - Added SimpleDifficulty compatibility, uses same config options as ToughAsNails.

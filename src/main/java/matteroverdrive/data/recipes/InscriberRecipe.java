@@ -26,6 +26,17 @@ public class InscriberRecipe extends Recipe<TileEntityInscriber> {
 	public InscriberRecipe() {
 	}
 
+	/**
+	 * Constructor used by compatibility layers.
+	 */
+	public InscriberRecipe(ItemStack main, ItemStack sec, ItemStack output, int energy, int time) {
+		this.main = main;
+		this.sec = sec;
+		this.output = output;
+		this.energy = energy;
+		this.time = time;
+	}
+
 	public ItemStack getMain() {
 		return main;
 	}
