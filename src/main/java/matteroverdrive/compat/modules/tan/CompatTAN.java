@@ -37,24 +37,32 @@ public class CompatTAN {
     }
 
     /**
-     * Extracts RF proportional to thirst deficit, restores that many thirst points.
-     * Only called when android has sufficient power.
+     * Restores any thirst deficit and bills RF for both the restored points and
+     * the unconverted exhaustion drift accumulated since the last check.
      */
     public static void suppressThirst(AndroidPlayer android, int energyPerPoint) {
         if (!TANHelper.thirstEnabled) return;
         IThirst thirst = ThirstHelper.getThirstData(android.getPlayer());
         if (thirst == null) return;
-        int thirstNeeded = 20 - thirst.getThirst();
+
+        int currentThirst = thirst.getThirst();
+        int thirstNeeded = 20 - currentThirst;
         float exhaustion = thirst.getExhaustion();
-        // Skip all work when thirst is full and TAN hasn't accumulated any exhaustion yet.
+
         if (thirstNeeded <= 0 && exhaustion <= 0.0f) return;
-        if (thirstNeeded > 0) {
-            int extracted = android.extractEnergyRaw(thirstNeeded * energyPerPoint, false);
-            int pointsRestored = extracted / energyPerPoint;
-            if (pointsRestored > 0) {
-                thirst.setThirst(thirst.getThirst() + pointsRestored);
-                thirst.setHydration(5.0f);
-            }
+
+        // Bill RF for pending exhaustion (fractional) + thirst deficit (whole points).
+        float totalDeficit = thirstNeeded + exhaustion / 4.0f;
+        int rfNeeded = (int) Math.ceil(totalDeficit * energyPerPoint);
+        if (rfNeeded <= 0) return;
+
+        int extracted = android.extractEnergyRaw(rfNeeded, false);
+        if (extracted <= 0) return;
+
+        int pointsRestored = Math.min(thirstNeeded, extracted / energyPerPoint);
+        if (pointsRestored > 0) {
+            thirst.setThirst(currentThirst + pointsRestored);
+            thirst.setHydration(5.0f);
         }
         if (exhaustion > 0.0f) {
             thirst.setExhaustion(0.0f);
