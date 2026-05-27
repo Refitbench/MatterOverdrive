@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import matteroverdrive.compat.modules.CompatTConstruct;
 import matteroverdrive.compat.modules.computercraft.CompatComputerCraft;
+import matteroverdrive.compat.modules.crafttweaker.CompatCraftTweaker;
 import matteroverdrive.compat.modules.groovyscript.CompatGroovyScript;
 import matteroverdrive.compat.modules.sd.CompatSD;
 import matteroverdrive.compat.modules.sd.CompatSDClient;
@@ -35,6 +36,7 @@ public class MatterOverdriveCompat {
 		register(CompatTAN.class);
 		register(CompatSD.class);
 		register(CompatGroovyScript.class);
+		register(CompatCraftTweaker.class);
 	}
 
 	// Add additional modules that need to run ONLY on the Client
