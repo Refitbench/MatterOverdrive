@@ -2,6 +2,7 @@ package matteroverdrive.compat.modules.groovyscript;
 
 import com.cleanroommc.groovyscript.api.Result;
 import com.cleanroommc.groovyscript.compat.mods.GroovyContainer;
+import com.cleanroommc.groovyscript.mapper.ObjectMappers;
 
 import matteroverdrive.MatterOverdrive;
 import matteroverdrive.api.android.IBioticStat;
@@ -45,12 +46,9 @@ final class MOObjectMappers {
 
         container.objectMapperBuilder("dialog", IDialogMessage.class)
                 .parser((s, args) -> {
-                    ResourceLocation rl;
-                    try {
-                        rl = new ResourceLocation(s);
-                    } catch (Exception e) {
-                        return Result.error("Invalid dialog resource location: " + s);
-                    }
+                    Result<ResourceLocation> parsed = ObjectMappers.parseResourceLocation(s, args);
+                    if (parsed.hasError()) return Result.error(parsed.getError());
+                    ResourceLocation rl = parsed.getValue();
                     IDialogMessage msg = MatterOverdrive.DIALOG_REGISTRY.getMessage(rl);
                     return msg == null ? Result.error("Unknown dialog message: " + s) : Result.some(msg);
                 })

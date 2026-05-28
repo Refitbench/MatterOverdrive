@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
+import com.cleanroommc.groovyscript.api.GroovyLog;
 import com.cleanroommc.groovyscript.api.documentation.annotations.Example;
 import com.cleanroommc.groovyscript.api.documentation.annotations.MethodDescription;
 import com.cleanroommc.groovyscript.api.documentation.annotations.RegistryDescription;
@@ -30,16 +31,17 @@ public class AndroidCompat extends VirtualizedRegistry<Runnable> {
         while (!undoStack.isEmpty()) {
             try {
                 undoStack.pop().run();
-            } catch (Exception ignored) {
-                // best-effort restoration
+            } catch (Exception e) {
+                GroovyLog.get().error("Failed to undo a Matter Overdrive android stat change: {}", e.getMessage());
             }
         }
     }
 
     private static AbstractBioticStat asAbs(IBioticStat stat) {
         if (!(stat instanceof AbstractBioticStat)) {
-            throw new IllegalArgumentException("Stat " + (stat == null ? "null" : stat.getUnlocalizedName())
-                    + " is not an AbstractBioticStat; cannot mutate via GroovyScript");
+            GroovyLog.get().error("Stat {} is not an AbstractBioticStat; cannot mutate via GroovyScript",
+                    stat == null ? "null" : stat.getUnlocalizedName());
+            return null;
         }
         return (AbstractBioticStat) stat;
     }
@@ -47,6 +49,7 @@ public class AndroidCompat extends VirtualizedRegistry<Runnable> {
     @MethodDescription(example = @Example("androidStat('shield'), 25"))
     public void setXp(IBioticStat stat, int xp) {
         AbstractBioticStat a = asAbs(stat);
+        if (a == null) return;
         int prev = a.getXp();
         a.setXp(xp);
         undoStack.push(() -> a.setXp(prev));
@@ -54,6 +57,7 @@ public class AndroidCompat extends VirtualizedRegistry<Runnable> {
 
     private void setEnabled(IBioticStat stat, Boolean enabled) {
         AbstractBioticStat a = asAbs(stat);
+        if (a == null) return;
         Boolean prev = a.getEnabledOverride();
         a.setEnabledOverride(enabled);
         undoStack.push(() -> a.setEnabledOverride(prev));
@@ -72,6 +76,7 @@ public class AndroidCompat extends VirtualizedRegistry<Runnable> {
     @MethodDescription
     public void addRequiredItem(IBioticStat stat, ItemStack item) {
         AbstractBioticStat a = asAbs(stat);
+        if (a == null) return;
         a.addReqiredItm(item);
         undoStack.push(() -> {
             List<ItemStack> reqs = a.getRequiredItems();
@@ -88,6 +93,7 @@ public class AndroidCompat extends VirtualizedRegistry<Runnable> {
     @MethodDescription
     public void clearRequiredItems(IBioticStat stat) {
         AbstractBioticStat a = asAbs(stat);
+        if (a == null) return;
         List<ItemStack> prev = new ArrayList<>(a.getRequiredItems());
         a.clearRequiredItems();
         undoStack.push(() -> {

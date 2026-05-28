@@ -3,6 +3,7 @@ package matteroverdrive.compat.modules.groovyscript;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+import com.cleanroommc.groovyscript.api.GroovyLog;
 import com.cleanroommc.groovyscript.api.documentation.annotations.Example;
 import com.cleanroommc.groovyscript.api.documentation.annotations.MethodDescription;
 import com.cleanroommc.groovyscript.api.documentation.annotations.RegistryDescription;
@@ -31,8 +32,8 @@ public class MatterCompat extends VirtualizedRegistry<Runnable> {
         while (!undoStack.isEmpty()) {
             try {
                 undoStack.pop().run();
-            } catch (Exception ignored) {
-                // best-effort restoration — log via GroovyLog in caller if needed
+            } catch (Exception e) {
+                GroovyLog.get().error("Failed to undo a Matter Overdrive matter registry change: {}", e.getMessage());
             }
         }
     }
@@ -41,22 +42,9 @@ public class MatterCompat extends VirtualizedRegistry<Runnable> {
         return MatterOverdrive.MATTER_REGISTRY;
     }
 
-    private static Item resolveItem(String id) {
-        Item item = Item.getByNameOrId(id);
-        if (item == null) {
-            throw new IllegalArgumentException("Unknown item id: " + id);
-        }
-        return item;
-    }
-
     // ---- add / replace ----
 
-    @MethodDescription(example = @Example("'minecraft:gold_ingot', 256"))
-    public void add(String itemId, int matter) {
-        add(resolveItem(itemId), new ItemHandler(matter));
-    }
-
-    @MethodDescription
+    @MethodDescription(example = @Example("item('minecraft:gold_ingot'), 256"))
     public void add(Item item, int matter) {
         add(item, new ItemHandler(matter));
     }
@@ -80,12 +68,7 @@ public class MatterCompat extends VirtualizedRegistry<Runnable> {
 
     // ---- remove ----
 
-    @MethodDescription(example = @Example("'minecraft:apple'"))
-    public void remove(String itemId) {
-        remove(resolveItem(itemId));
-    }
-
-    @MethodDescription
+    @MethodDescription(example = @Example("item('minecraft:apple').getItem()"))
     public void remove(Item item) {
         MatterEntryItem previous = registry().unregister(item);
         if (previous != null) {
