@@ -1,4 +1,8 @@
 # Changelog
+## [1.2.2] - 2026-05-28
+### Fixed
+- A dedicated server NSFE crash.
+
 ## [1.2.1] - 2026-05-27
 ### Added
 - New mixins to surpress ToughAsNails and SimpleDifficulty's temperature calculations when compat is set to surpress mode to true. This is 90% more better.
