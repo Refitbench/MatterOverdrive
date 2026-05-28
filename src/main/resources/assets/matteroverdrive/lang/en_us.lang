@@ -819,8 +819,8 @@ groovyscript.wiki.matteroverdrive.inscriber.removeByOutput=Remove all Inscriber 
 groovyscript.wiki.matteroverdrive.inscriber.removeByInputs=Remove all Inscriber recipes whose main and secondary inputs match the given ingredients.
 groovyscript.wiki.matteroverdrive.inscriber.recipeBuilder.title=Recipe Builder
 groovyscript.wiki.matteroverdrive.inscriber.recipeBuilder.description=Build and register a new Inscriber recipe with two inputs, one output, an energy cost, and a processing time.
-groovyscript.wiki.matteroverdrive.inscriber.energy.value=Energy consumed per recipe in RF. Must be greater than 0. Default: 1000.
-groovyscript.wiki.matteroverdrive.inscriber.time.value=Ticks required to complete the recipe. Must be greater than 0. Default: 60.
+groovyscript.wiki.matteroverdrive.inscriber.energy.value=Energy consumed per recipe in RF. Must be greater than 0.
+groovyscript.wiki.matteroverdrive.inscriber.time.value=Ticks required to complete the recipe. Must be greater than 0.
 
 # android
 groovyscript.wiki.matteroverdrive.android.title=Android Biotic Stats
