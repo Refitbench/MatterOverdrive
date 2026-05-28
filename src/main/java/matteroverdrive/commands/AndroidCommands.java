@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class AndroidCommands extends CommandBase {
-	public static String[] subCommands = new String[] { "set", "stats", "unlock", "forget" };
+	public static String[] subCommands = new String[] { "set", "stats", "unlock", "forget", "list" };
 
 	@Override
 	public String getName() {
@@ -47,7 +47,26 @@ public class AndroidCommands extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] parameters) throws CommandException {
 		if (parameters.length == 0) {
-			sender.sendMessage(new TextComponentString("Invalid Parameters"));
+			sender.sendMessage(new TextComponentString(TextFormatting.GOLD + "[Matter Overdrive] "
+					+ TextFormatting.RESET + "Usage: /android <" + String.join(" | ", subCommands) + ">"));
+			return;
+		}
+
+		if (parameters.length == 1 && parameters[0].equalsIgnoreCase("stats")) {
+			sender.sendMessage(new TextComponentString("Usage: /android stats reset"));
+			return;
+		}
+
+		if (parameters.length == 1 && parameters[0].equalsIgnoreCase("list")) {
+			List<String> names = MatterOverdrive.STAT_REGISTRY.getStats().stream()
+					.map(IBioticStat::getUnlocalizedName)
+					.sorted()
+					.collect(Collectors.toList());
+			sender.sendMessage(new TextComponentString(TextFormatting.GOLD + "[Matter Overdrive] "
+					+ TextFormatting.RESET + "Registered biotic stats (" + names.size() + "):"));
+			for (String name : names) {
+				sender.sendMessage(new TextComponentString("  - " + name));
+			}
 			return;
 		}
 
@@ -79,6 +98,9 @@ public class AndroidCommands extends CommandBase {
 						androidPlayer.resetUnlocked();
 						validCommand = true;
 						commandInfo = sender.getName() + " stats are now Reset";
+					} else {
+						sender.sendMessage(new TextComponentString("Usage: /android stats reset"));
+						return;
 					}
 				} else if (parameters[0].equalsIgnoreCase("unlock")) {
 					if (MatterOverdrive.STAT_REGISTRY.hasStat(parameters[1])) {
