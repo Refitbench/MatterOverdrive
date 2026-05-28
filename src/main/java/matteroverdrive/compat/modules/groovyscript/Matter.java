@@ -87,7 +87,7 @@ public class Matter extends VirtualizedRegistry<Runnable> {
 
     // ---- mod blacklist (matter calculation blacklist) ----
 
-    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("'thaumcraft'"))
+    @MethodDescription(type = MethodDescription.Type.REMOVAL, example = @Example("'thaumcraft'"))
     public void blacklistMod(String modId) {
         if (registry().getModBlacklist().add(modId)) {
             undoStack.push(() -> registry().removeFromBlacklist(modId));
