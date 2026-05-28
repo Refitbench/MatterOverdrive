@@ -827,11 +827,11 @@ groovyscript.wiki.matteroverdrive.android.title=Android Biotic Stats
 groovyscript.wiki.matteroverdrive.android.description=Tweak Android biotic stat parameters such as XP cost, required items, and enabled state.
 groovyscript.wiki.matteroverdrive.android.note0=Use the `androidStat(name)` bracket handler to obtain an IBioticStat.
 groovyscript.wiki.matteroverdrive.android.setXp=Set the XP cost in levels required for the given biotic stat.
-groovyscript.wiki.matteroverdrive.android.enable=Force the given biotic stat to be enabled, overriding config-based rules.
-groovyscript.wiki.matteroverdrive.android.disable=Force the given biotic stat to be disabled, overriding config-based rules.
+groovyscript.wiki.matteroverdrive.android.enable=Set the given biotic stat to be enabled, overriding config-based rules.
+groovyscript.wiki.matteroverdrive.android.disable=Set the given biotic stat to be disabled, overriding config-based rules, disabling the stat features.
 groovyscript.wiki.matteroverdrive.android.addRequiredItem=Add an item that must be present in the player's inventory to install the given biotic stat.
 groovyscript.wiki.matteroverdrive.android.clearRequiredItems=Remove all required installation items from the given biotic stat.
-groovyscript.wiki.matteroverdrive.android.unregister=Unregister a biotic stat entirely, preventing it from appearing or functioning.
+groovyscript.wiki.matteroverdrive.android.unregister=Set the given biotic stat to be delisted. Cannot be installed from the Android Station, but current installs continue to function.
 groovyscript.wiki.matteroverdrive.android.getStatNames=Returns a sorted list of all currently registered biotic stat unlocalized names.
 groovyscript.wiki.matteroverdrive.android.note1=Use the command `/android list` to print all registered biotic stat names to chat.
 

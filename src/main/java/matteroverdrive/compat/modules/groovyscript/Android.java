@@ -72,6 +72,14 @@ public class Android extends VirtualizedRegistry<Runnable> {
         undoStack.push(() -> a.setEnabledOverride(prev));
     }
 
+    private void setHidden(IBioticStat stat, boolean hidden) {
+        AbstractBioticStat a = asAbs(stat);
+        if (a == null) return;
+        boolean prev = a.isHiddenOverride();
+        a.setHiddenOverride(hidden);
+        undoStack.push(() -> a.setHiddenOverride(prev));
+    }
+
     @MethodDescription(type = MethodDescription.Type.VALUE)
     public void disable(IBioticStat stat) {
         setEnabled(stat, Boolean.FALSE);
@@ -121,7 +129,6 @@ public class Android extends VirtualizedRegistry<Runnable> {
 
     @MethodDescription(example = @Example("androidStat('cloak')"))
     public void unregister(IBioticStat stat) {
-        MatterOverdrive.STAT_REGISTRY.unregisterStat(stat.getUnlocalizedName());
-        undoStack.push(() -> MatterOverdrive.STAT_REGISTRY.registerStat(stat));
+        setHidden(stat, true);
     }
 }

@@ -37,6 +37,11 @@ public abstract class AbstractBioticStat implements IBioticStat {
 	 * a stat at runtime.
 	 */
 	private Boolean enabledOverride;
+	/**
+	 * When true, hides this stat from the Android Station UI and blocks new
+	 * installations without affecting {@link #isEnabled(AndroidPlayer, int)}.
+	 */
+	private boolean hiddenOverride;
 
 	public AbstractBioticStat(String name, int xp) {
 		this.name = name;
@@ -81,6 +86,22 @@ public abstract class AbstractBioticStat implements IBioticStat {
 		return enabledOverride;
 	}
 
+	public void setHiddenOverride(boolean hidden) {
+		this.hiddenOverride = hidden;
+	}
+
+	public boolean isHiddenOverride() {
+		return hiddenOverride;
+	}
+
+	/**
+	 * Returns true if this stat should be grayed out and unavailable for new
+	 * installs. Does not affect androids that already have it installed.
+	 */
+	public boolean isHiddenFromStation() {
+		return hiddenOverride || (enabledOverride != null && !enabledOverride);
+	}
+
 	public int getXp() {
 		return xp;
 	}
@@ -99,14 +120,16 @@ public abstract class AbstractBioticStat implements IBioticStat {
 
 	@Override
 	public boolean canBeUnlocked(AndroidPlayer android, int level) {
-		if (enabledOverride != null && !enabledOverride) {
+		if (hiddenOverride || (enabledOverride != null && !enabledOverride)) {
 			return false;
 		}
 		// if the root is not unlocked then this stat can't be unlocked.
-		// An unregistered root (removed via script) is treated as satisfied so
-		// that dependent stats remain accessible.
+		// A root that is disabled or hidden passes through.
+		boolean rootHidden = root instanceof AbstractBioticStat
+				&& ((AbstractBioticStat) root).isHiddenFromStation();
 		if (root != null
 				&& MatterOverdrive.STAT_REGISTRY.hasStat(root.getUnlocalizedName())
+				&& !rootHidden
 				&& !android.isUnlocked(root, rootMaxLevel ? root.maxLevel() : 1)) {
 			return false;
 		}
