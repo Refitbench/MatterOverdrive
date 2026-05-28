@@ -6,6 +6,7 @@ import java.util.Collections;
 import com.cleanroommc.groovyscript.api.GroovyPlugin;
 import com.cleanroommc.groovyscript.compat.mods.GroovyContainer;
 import com.cleanroommc.groovyscript.compat.mods.GroovyPropertyContainer;
+import com.cleanroommc.groovyscript.documentation.linkgenerator.LinkGeneratorHooks;
 
 import matteroverdrive.Reference;
 
@@ -39,6 +40,7 @@ public class MOGroovyPlugin implements GroovyPlugin {
 
     @Override
     public void onCompatLoaded(GroovyContainer<?> container) {
+        LinkGeneratorHooks.registerLinkGenerator(new MOLinkGenerator());
         MOObjectMappers.register(container);
     }
 }

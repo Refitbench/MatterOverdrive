@@ -7,6 +7,7 @@ import com.cleanroommc.groovyscript.api.documentation.annotations.RegistryDescri
 import com.cleanroommc.groovyscript.registry.VirtualizedRegistry;
 
 import matteroverdrive.MatterOverdrive;
+import matteroverdrive.Reference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -15,7 +16,7 @@ import net.minecraft.item.ItemStack;
  * GroovyScript registry for Matter Overdrive's replicator blacklist.
  * Items on this list cannot be replicated even if they have a matter value.
  */
-@RegistryDescription(category = RegistryDescription.Category.ENTRIES)
+@RegistryDescription(linkGenerator = Reference.MOD_ID, category = RegistryDescription.Category.ENTRIES)
 public class Replicator extends VirtualizedRegistry<Item> {
 
     @Override

@@ -15,6 +15,7 @@ import com.cleanroommc.groovyscript.api.documentation.annotations.RegistryDescri
 import com.cleanroommc.groovyscript.helper.recipe.AbstractRecipeBuilder;
 import com.cleanroommc.groovyscript.registry.StandardListRegistry;
 
+import matteroverdrive.Reference;
 import matteroverdrive.data.recipes.InscriberRecipe;
 import matteroverdrive.init.MatterOverdriveRecipes;
 import net.minecraft.item.ItemStack;
@@ -31,7 +32,7 @@ import net.minecraft.item.ItemStack;
  *     .register()
  * }</pre>
  */
-@RegistryDescription
+@RegistryDescription(linkGenerator = Reference.MOD_ID)
 public class Inscriber extends StandardListRegistry<InscriberRecipe> {
 
     @Override

@@ -10,6 +10,7 @@ import com.cleanroommc.groovyscript.api.documentation.annotations.RegistryDescri
 import com.cleanroommc.groovyscript.registry.VirtualizedRegistry;
 
 import matteroverdrive.MatterOverdrive;
+import matteroverdrive.Reference;
 import matteroverdrive.data.matter.IMatterEntryHandler;
 import matteroverdrive.data.matter.ItemHandler;
 import matteroverdrive.data.matter.MatterEntryItem;
@@ -22,7 +23,7 @@ import net.minecraft.item.Item;
  * mod blacklist. Each scripted mutation is recorded as an undo action and
  * replayed in reverse on {@code /groovyscript reload}.
  */
-@RegistryDescription(category = RegistryDescription.Category.ENTRIES)
+@RegistryDescription(linkGenerator = Reference.MOD_ID, category = RegistryDescription.Category.ENTRIES)
 public class Matter extends VirtualizedRegistry<Runnable> {
 
     private final Deque<Runnable> undoStack = new ArrayDeque<>();

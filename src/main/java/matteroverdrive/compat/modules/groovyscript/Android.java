@@ -14,6 +14,7 @@ import com.cleanroommc.groovyscript.api.documentation.annotations.RegistryDescri
 import com.cleanroommc.groovyscript.registry.VirtualizedRegistry;
 
 import matteroverdrive.MatterOverdrive;
+import matteroverdrive.Reference;
 import matteroverdrive.api.android.IBioticStat;
 import matteroverdrive.data.biostats.AbstractBioticStat;
 import net.minecraft.item.ItemStack;
@@ -24,6 +25,7 @@ import net.minecraft.item.ItemStack;
  * restores the previous values.
  */
 @RegistryDescription(
+        linkGenerator = Reference.MOD_ID,
         category = RegistryDescription.Category.ENTRIES,
         admonition = {
                 @Admonition(value = "groovyscript.wiki.matteroverdrive.android.note0", type = Admonition.Type.INFO),
