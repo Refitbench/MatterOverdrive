@@ -11,10 +11,10 @@ import com.cleanroommc.groovyscript.compat.mods.GroovyPropertyContainer;
  */
 public class MatterOverdriveContainer extends GroovyPropertyContainer {
 
-    public final MatterCompat matter = new MatterCompat();
-    public final InscriberCompat inscriber = new InscriberCompat();
-    public final AndroidCompat android = new AndroidCompat();
-    public final ReplicatorCompat replicator = new ReplicatorCompat();
+    public final Matter matter = new Matter();
+    public final Inscriber inscriber = new Inscriber();
+    public final Android android = new Android();
+    public final Replicator replicator = new Replicator();
 
     @Override
     public void initialize(GroovyContainer<?> owner) {

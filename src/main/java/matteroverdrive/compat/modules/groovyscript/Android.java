@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.cleanroommc.groovyscript.api.GroovyLog;
+import com.cleanroommc.groovyscript.api.documentation.annotations.Admonition;
 import com.cleanroommc.groovyscript.api.documentation.annotations.Example;
 import com.cleanroommc.groovyscript.api.documentation.annotations.MethodDescription;
 import com.cleanroommc.groovyscript.api.documentation.annotations.RegistryDescription;
@@ -22,8 +23,13 @@ import net.minecraft.item.ItemStack;
  * Mutations are captured into undo actions so {@code /groovyscript reload}
  * restores the previous values.
  */
-@RegistryDescription(category = RegistryDescription.Category.ENTRIES)
-public class AndroidCompat extends VirtualizedRegistry<Runnable> {
+@RegistryDescription(
+        category = RegistryDescription.Category.ENTRIES,
+        admonition = {
+                @Admonition(value = "groovyscript.wiki.matteroverdrive.android.note0", type = Admonition.Type.INFO),
+                @Admonition(value = "groovyscript.wiki.matteroverdrive.android.note1", type = Admonition.Type.TIP)
+        })
+public class Android extends VirtualizedRegistry<Runnable> {
 
     private final Deque<Runnable> undoStack = new ArrayDeque<>();
 
@@ -74,7 +80,7 @@ public class AndroidCompat extends VirtualizedRegistry<Runnable> {
         setEnabled(stat, Boolean.TRUE);
     }
 
-    @MethodDescription(type = MethodDescription.Type.ADDITION)
+    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("androidStat('shield'), item('minecraft:iron_ingot') * 5"))
     public void addRequiredItem(IBioticStat stat, ItemStack item) {
         AbstractBioticStat a = asAbs(stat);
         if (a == null) return;
@@ -111,11 +117,9 @@ public class AndroidCompat extends VirtualizedRegistry<Runnable> {
                 .collect(Collectors.toList());
     }
 
-    @MethodDescription(example = @Example("'cloak'"))
-    public void unregister(String unlocalizedName) {
-        IBioticStat removed = MatterOverdrive.STAT_REGISTRY.getStat(unlocalizedName);
-        if (removed == null) return;
-        MatterOverdrive.STAT_REGISTRY.unregisterStat(unlocalizedName);
-        undoStack.push(() -> MatterOverdrive.STAT_REGISTRY.registerStat(removed));
+    @MethodDescription(example = @Example("androidStat('cloak')"))
+    public void unregister(IBioticStat stat) {
+        MatterOverdrive.STAT_REGISTRY.unregisterStat(stat.getUnlocalizedName());
+        undoStack.push(() -> MatterOverdrive.STAT_REGISTRY.registerStat(stat));
     }
 }

@@ -4,11 +4,13 @@ import java.util.Collection;
 
 import com.cleanroommc.groovyscript.api.GroovyLog;
 import com.cleanroommc.groovyscript.api.IIngredient;
+import com.cleanroommc.groovyscript.api.documentation.annotations.Comp;
 import com.cleanroommc.groovyscript.api.documentation.annotations.Example;
 import com.cleanroommc.groovyscript.api.documentation.annotations.MethodDescription;
 import com.cleanroommc.groovyscript.api.documentation.annotations.Property;
 import com.cleanroommc.groovyscript.api.documentation.annotations.RecipeBuilderDescription;
 import com.cleanroommc.groovyscript.api.documentation.annotations.RecipeBuilderMethodDescription;
+import com.cleanroommc.groovyscript.api.documentation.annotations.RecipeBuilderRegistrationMethod;
 import com.cleanroommc.groovyscript.api.documentation.annotations.RegistryDescription;
 import com.cleanroommc.groovyscript.helper.recipe.AbstractRecipeBuilder;
 import com.cleanroommc.groovyscript.registry.StandardListRegistry;
@@ -30,7 +32,7 @@ import net.minecraft.item.ItemStack;
  * }</pre>
  */
 @RegistryDescription
-public class InscriberCompat extends StandardListRegistry<InscriberRecipe> {
+public class Inscriber extends StandardListRegistry<InscriberRecipe> {
 
     @Override
     public Collection<InscriberRecipe> getRecipes() {
@@ -46,7 +48,7 @@ public class InscriberCompat extends StandardListRegistry<InscriberRecipe> {
         }
     }
 
-    @MethodDescription(example = @Example(commented = true))
+    @MethodDescription(example = @Example("item('matteroverdrive:isolinear_circuit'), item('minecraft:gold_ingot')"))
     public void removeByInputs(IIngredient main, IIngredient sec) {
         for (ItemStack mainStack : main.getMatchingStacks()) {
             for (ItemStack secStack : sec.getMatchingStacks()) {
@@ -62,6 +64,8 @@ public class InscriberCompat extends StandardListRegistry<InscriberRecipe> {
         return new RecipeBuilder();
     }
 
+    @Property(property = "input", comp = @Comp(eq = 2))
+    @Property(property = "output", comp = @Comp(eq = 1))
     public class RecipeBuilder extends AbstractRecipeBuilder<InscriberRecipe> {
 
         @Property(defaultValue = "1000")
@@ -94,6 +98,7 @@ public class InscriberCompat extends StandardListRegistry<InscriberRecipe> {
         }
 
         @Override
+        @RecipeBuilderRegistrationMethod
         public InscriberRecipe register() {
             if (!validate()) return null;
             ItemStack[] mainStacks = input.get(0).getMatchingStacks();
@@ -102,7 +107,7 @@ public class InscriberCompat extends StandardListRegistry<InscriberRecipe> {
             ItemStack sec = secStacks.length > 0 ? secStacks[0] : ItemStack.EMPTY;
             ItemStack out = output.get(0);
             InscriberRecipe recipe = new InscriberRecipe(main, sec, out, energy, time);
-            InscriberCompat.this.add(recipe);
+            Inscriber.this.add(recipe);
             return recipe;
         }
     }

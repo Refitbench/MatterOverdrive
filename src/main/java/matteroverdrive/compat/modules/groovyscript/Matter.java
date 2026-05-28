@@ -23,7 +23,7 @@ import net.minecraft.item.Item;
  * replayed in reverse on {@code /groovyscript reload}.
  */
 @RegistryDescription(category = RegistryDescription.Category.ENTRIES)
-public class MatterCompat extends VirtualizedRegistry<Runnable> {
+public class Matter extends VirtualizedRegistry<Runnable> {
 
     private final Deque<Runnable> undoStack = new ArrayDeque<>();
 

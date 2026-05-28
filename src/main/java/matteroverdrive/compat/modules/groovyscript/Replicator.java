@@ -16,7 +16,7 @@ import net.minecraft.item.ItemStack;
  * Items on this list cannot be replicated even if they have a matter value.
  */
 @RegistryDescription(category = RegistryDescription.Category.ENTRIES)
-public class ReplicatorCompat extends VirtualizedRegistry<Item> {
+public class Replicator extends VirtualizedRegistry<Item> {
 
     @Override
     public void onReload() {
