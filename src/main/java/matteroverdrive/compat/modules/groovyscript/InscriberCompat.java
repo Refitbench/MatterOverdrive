@@ -3,6 +3,7 @@ package matteroverdrive.compat.modules.groovyscript;
 import java.util.Collection;
 
 import com.cleanroommc.groovyscript.api.GroovyLog;
+import com.cleanroommc.groovyscript.api.IIngredient;
 import com.cleanroommc.groovyscript.api.documentation.annotations.Example;
 import com.cleanroommc.groovyscript.api.documentation.annotations.MethodDescription;
 import com.cleanroommc.groovyscript.api.documentation.annotations.Property;
@@ -37,16 +38,22 @@ public class InscriberCompat extends StandardListRegistry<InscriberRecipe> {
     }
 
     @MethodDescription(example = @Example(commented = true))
-    public void removeByOutput(ItemStack output) {
-        for (InscriberRecipe r : MatterOverdriveRecipes.INSCRIBER.removeByOutput(output)) {
-            addBackup(r);
+    public void removeByOutput(IIngredient output) {
+        for (ItemStack stack : output.getMatchingStacks()) {
+            for (InscriberRecipe r : MatterOverdriveRecipes.INSCRIBER.removeByOutput(stack)) {
+                addBackup(r);
+            }
         }
     }
 
     @MethodDescription(example = @Example(commented = true))
-    public void removeByInputs(ItemStack main, ItemStack sec) {
-        for (InscriberRecipe r : MatterOverdriveRecipes.INSCRIBER.removeByInputPair(main, sec)) {
-            addBackup(r);
+    public void removeByInputs(IIngredient main, IIngredient sec) {
+        for (ItemStack mainStack : main.getMatchingStacks()) {
+            for (ItemStack secStack : sec.getMatchingStacks()) {
+                for (InscriberRecipe r : MatterOverdriveRecipes.INSCRIBER.removeByInputPair(mainStack, secStack)) {
+                    addBackup(r);
+                }
+            }
         }
     }
 
