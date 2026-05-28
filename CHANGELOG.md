@@ -1,5 +1,5 @@
 # Changelog
-## [1.2.2] - 2026-05-28
+## [1.2.2-1.2.3] - 2026-05-28
 ### Fixed
 - A dedicated server NSFE crash.
 
