@@ -21,7 +21,7 @@ import net.minecraft.item.ItemStack;
  * Mutations are captured into undo actions so {@code /groovyscript reload}
  * restores the previous values.
  */
-@RegistryDescription
+@RegistryDescription(category = RegistryDescription.Category.ENTRIES)
 public class AndroidCompat extends VirtualizedRegistry<Runnable> {
 
     private final Deque<Runnable> undoStack = new ArrayDeque<>();
@@ -46,7 +46,7 @@ public class AndroidCompat extends VirtualizedRegistry<Runnable> {
         return (AbstractBioticStat) stat;
     }
 
-    @MethodDescription(example = @Example("androidStat('shield'), 25"))
+    @MethodDescription(type = MethodDescription.Type.VALUE, example = @Example("androidStat('shield'), 25"))
     public void setXp(IBioticStat stat, int xp) {
         AbstractBioticStat a = asAbs(stat);
         if (a == null) return;
@@ -63,17 +63,17 @@ public class AndroidCompat extends VirtualizedRegistry<Runnable> {
         undoStack.push(() -> a.setEnabledOverride(prev));
     }
 
-    @MethodDescription
+    @MethodDescription(type = MethodDescription.Type.VALUE)
     public void disable(IBioticStat stat) {
         setEnabled(stat, Boolean.FALSE);
     }
 
-    @MethodDescription
+    @MethodDescription(type = MethodDescription.Type.VALUE)
     public void enable(IBioticStat stat) {
         setEnabled(stat, Boolean.TRUE);
     }
 
-    @MethodDescription
+    @MethodDescription(type = MethodDescription.Type.ADDITION)
     public void addRequiredItem(IBioticStat stat, ItemStack item) {
         AbstractBioticStat a = asAbs(stat);
         if (a == null) return;

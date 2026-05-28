@@ -15,7 +15,7 @@ import net.minecraft.item.ItemStack;
  * GroovyScript registry for Matter Overdrive's replicator blacklist.
  * Items on this list cannot be replicated even if they have a matter value.
  */
-@RegistryDescription
+@RegistryDescription(category = RegistryDescription.Category.ENTRIES)
 public class ReplicatorCompat extends VirtualizedRegistry<Item> {
 
     @Override
@@ -25,18 +25,18 @@ public class ReplicatorCompat extends VirtualizedRegistry<Item> {
         }
     }
 
-    @MethodDescription(example = @Example("item('matteroverdrive:matter_dust').getItem()"))
+    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("item('matteroverdrive:matter_dust').getItem()"))
     public void add(Item item) {
         MatterOverdrive.MATTER_REGISTRY.addToReplicationBlacklist(item);
         addScripted(item);
     }
 
-    @MethodDescription
+    @MethodDescription(type = MethodDescription.Type.ADDITION)
     public void add(ItemStack stack) {
         if (!stack.isEmpty()) add(stack.getItem());
     }
 
-    @MethodDescription
+    @MethodDescription(type = MethodDescription.Type.ADDITION)
     public void add(IIngredient ingredient) {
         for (ItemStack stack : ingredient.getMatchingStacks()) {
             add(stack);

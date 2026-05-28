@@ -22,7 +22,7 @@ import net.minecraft.item.Item;
  * mod blacklist. Each scripted mutation is recorded as an undo action and
  * replayed in reverse on {@code /groovyscript reload}.
  */
-@RegistryDescription
+@RegistryDescription(category = RegistryDescription.Category.ENTRIES)
 public class MatterCompat extends VirtualizedRegistry<Runnable> {
 
     private final Deque<Runnable> undoStack = new ArrayDeque<>();
@@ -44,23 +44,23 @@ public class MatterCompat extends VirtualizedRegistry<Runnable> {
 
     // ---- add / replace ----
 
-    @MethodDescription(example = @Example("item('minecraft:gold_ingot'), 256"))
+    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("item('minecraft:gold_ingot'), 256"))
     public void add(Item item, int matter) {
         add(item, new ItemHandler(matter));
     }
 
-    @MethodDescription
+    @MethodDescription(type = MethodDescription.Type.ADDITION)
     public void add(Item item, IMatterEntryHandler handler) {
         MatterEntryItem previous = registry().replace(item, handler);
         undoStack.push(() -> registry().restoreItemEntry(item, previous));
     }
 
-    @MethodDescription(example = @Example("'oreGold', 256"))
+    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("'oreGold', 256"))
     public void addOre(String ore, int matter) {
         addOre(ore, new ItemHandler(matter));
     }
 
-    @MethodDescription
+    @MethodDescription(type = MethodDescription.Type.ADDITION)
     public void addOre(String ore, IMatterEntryHandler handler) {
         MatterEntryOre previous = registry().replaceOre(ore, handler);
         undoStack.push(() -> registry().restoreOreEntry(ore, previous));
@@ -86,7 +86,7 @@ public class MatterCompat extends VirtualizedRegistry<Runnable> {
 
     // ---- mod blacklist (matter calculation blacklist) ----
 
-    @MethodDescription(example = @Example("'thaumcraft'"))
+    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("'thaumcraft'"))
     public void blacklistMod(String modId) {
         if (registry().getModBlacklist().add(modId)) {
             undoStack.push(() -> registry().removeFromBlacklist(modId));
