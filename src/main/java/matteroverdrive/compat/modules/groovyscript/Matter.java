@@ -45,7 +45,7 @@ public class Matter extends VirtualizedRegistry<Runnable> {
 
     // ---- add / replace ----
 
-    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("item('minecraft:gold_ingot'), 256"))
+    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("item('minecraft:gold_ingot').getItem(), 256"))
     public void add(Item item, int matter) {
         add(item, new ItemHandler(matter));
     }
