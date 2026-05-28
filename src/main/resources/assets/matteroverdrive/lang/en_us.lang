@@ -801,3 +801,41 @@ quest.stem_bolts.info.0=After speaking with the Mad Scientist, you were left wit
 quest.stem_bolts.info.1=You found it! A small text at the end, reefers to a disclaimer stating that the shipping party will not be responsible for any undesirable mutations caused by Ionizing radiation. You begin to wonder what sort of cargo can have mutations. You decide to revisit the cargo ship for more clues.
 quest.stem_bolts.objective.0=Read the $itemName
 quest.stem_bolts.objective.1=Return to the cargo ship
+
+# GroovyScript wiki documentation keys
+# matter
+groovyscript.wiki.matteroverdrive.matter.title=Matter Registry
+groovyscript.wiki.matteroverdrive.matter.description=Modify the matter value table used by Matter Overdrive's scanner, replicator, and decomposer. Supports individual items, ore dictionary, or entire modIDs.
+groovyscript.wiki.matteroverdrive.matter.add=Set the matter value for an item, replacing any existing entry.
+groovyscript.wiki.matteroverdrive.matter.addOre=Set the matter value for all items matching an ore dictionary name, replacing any existing ore entry.
+groovyscript.wiki.matteroverdrive.matter.remove=Remove the matter entry for an item.
+groovyscript.wiki.matteroverdrive.matter.removeOre=Remove the matter entry for an ore dictionary name.
+groovyscript.wiki.matteroverdrive.matter.blacklistMod=Prevent a mod's items from being automatically assigned matter values during scanning. Use modID.
+
+# inscriber
+groovyscript.wiki.matteroverdrive.inscriber.title=Inscriber
+groovyscript.wiki.matteroverdrive.inscriber.description=Add or remove recipes from the Inscriber.
+groovyscript.wiki.matteroverdrive.inscriber.removeByOutput=Remove all Inscriber recipes whose output matches the given ingredient.
+groovyscript.wiki.matteroverdrive.inscriber.removeByInputs=Remove all Inscriber recipes whose main and secondary inputs match the given ingredients.
+groovyscript.wiki.matteroverdrive.inscriber.recipeBuilder.title=Recipe Builder
+groovyscript.wiki.matteroverdrive.inscriber.recipeBuilder.description=Build and register a new Inscriber recipe with two inputs, one output, an energy cost, and a processing time.
+groovyscript.wiki.matteroverdrive.inscriber.energy.value=Energy consumed per recipe in RF. Must be greater than 0. Default: 1000.
+groovyscript.wiki.matteroverdrive.inscriber.time.value=Ticks required to complete the recipe. Must be greater than 0. Default: 60.
+
+# android
+groovyscript.wiki.matteroverdrive.android.title=Android Biotic Stats
+groovyscript.wiki.matteroverdrive.android.description=Tweak Android biotic stat parameters such as XP cost, required items, and enabled state.
+groovyscript.wiki.matteroverdrive.android.note0=Use the `androidStat(name)` bracket handler to obtain an IBioticStat.
+groovyscript.wiki.matteroverdrive.android.setXp=Set the XP cost in levels required for the given biotic stat.
+groovyscript.wiki.matteroverdrive.android.enable=Force the given biotic stat to be enabled, overriding config-based rules.
+groovyscript.wiki.matteroverdrive.android.disable=Force the given biotic stat to be disabled, overriding config-based rules.
+groovyscript.wiki.matteroverdrive.android.addRequiredItem=Add an item that must be present in the player's inventory to install the given biotic stat.
+groovyscript.wiki.matteroverdrive.android.clearRequiredItems=Remove all required installation items from the given biotic stat.
+groovyscript.wiki.matteroverdrive.android.unregister=Unregister a biotic stat entirely, preventing it from appearing or functioning.
+groovyscript.wiki.matteroverdrive.android.getStatNames=Returns a sorted list of all currently registered biotic stat unlocalized names.
+groovyscript.wiki.matteroverdrive.android.note1=Use the command `/android list` to print all registered biotic stat names to chat.
+
+# replicator
+groovyscript.wiki.matteroverdrive.replicator.title=Replicator Blacklist
+groovyscript.wiki.matteroverdrive.replicator.description=Add items to the replicator blacklist. Blacklisted items cannot be replicated even if they have a matter value assigned.
+groovyscript.wiki.matteroverdrive.replicator.add=Add an item, item stack, or ingredient to the replicator blacklist.
