@@ -1,8 +1,11 @@
 # Changelog
 ## [1.3.0] - 2026-05-26
 ### Added
-- GroovyScript compatibility. See [GroovyScript Documentation](https://cleanroommc.com/groovy-script/mods/matteroverdrive)
-- CraftTweaker2 compatibility. See [CraftTweaker Documentation](https://github.com/Refitbench/MatterOverdrive/wiki)
+- GroovyScript compatibility (Preferred). See [GroovyScript Documentation](https://cleanroommc.com/groovy-script/mods/matteroverdrive)
+- CraftTweaker2 compatibility (Legacy). See [CraftTweaker Documentation](https://github.com/Refitbench/MatterOverdrive/wiki)
+- New utility command `/android list` to print all IBioticStat's registered for script use.
+### Changed
+- Updater chat message now includes clickable link.
 
 ## [1.2.0] - 2026-05-20
 ### Added
