@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.cleanroommc.groovyscript.api.GroovyLog;
 import com.cleanroommc.groovyscript.api.documentation.annotations.Example;
@@ -100,6 +101,14 @@ public class AndroidCompat extends VirtualizedRegistry<Runnable> {
             a.clearRequiredItems();
             for (ItemStack s : prev) a.addReqiredItm(s);
         });
+    }
+
+    @MethodDescription(type = MethodDescription.Type.QUERY)
+    public List<String> getStatNames() {
+        return MatterOverdrive.STAT_REGISTRY.getStats().stream()
+                .map(IBioticStat::getUnlocalizedName)
+                .sorted()
+                .collect(Collectors.toList());
     }
 
     @MethodDescription(example = @Example("'cloak'"))
