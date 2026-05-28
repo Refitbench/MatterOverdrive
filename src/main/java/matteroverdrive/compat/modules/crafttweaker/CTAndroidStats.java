@@ -25,14 +25,9 @@ import stanhebben.zenscript.annotations.ZenMethod;
  * android.clearRequiredItems("shield");
  * }</pre>
  *
- * <p>Stat unlocalized names match those shown in the Android Station UI.
- * Common values: {@code shield}, {@code cloak}, {@code floatation},
- * {@code speed}, {@code jump}, {@code nightvision}, {@code heatvision},
- * {@code xray}, {@code meleeattack}, {@code defense}, {@code hackling},
- * {@code hacking}, {@code nutritional_injection}, {@code battery_regen},
- * {@code repulsor}, {@code scanner}, {@code blink}, {@code recharge},
- * {@code targeting}, {@code ender_teleportation}, {@code force_field},
- * {@code tractor_beam}, {@code tan_temperature} (requires Tough As Nails).</p>
+ * <p>Use the in-game command {@code /android list} to print all registered
+ * biotic stat names to chat. Stat names match their unlocalized names as
+ * shown in the Android Station UI.</p>
  */
 @ZenRegister
 @ZenClass("mods.matteroverdrive.android")
