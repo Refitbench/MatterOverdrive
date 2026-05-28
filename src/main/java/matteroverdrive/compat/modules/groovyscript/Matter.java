@@ -4,6 +4,8 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 import com.cleanroommc.groovyscript.api.GroovyLog;
+import com.cleanroommc.groovyscript.api.IIngredient;
+import com.cleanroommc.groovyscript.api.IOreDicts;
 import com.cleanroommc.groovyscript.api.documentation.annotations.Example;
 import com.cleanroommc.groovyscript.api.documentation.annotations.MethodDescription;
 import com.cleanroommc.groovyscript.api.documentation.annotations.RegistryDescription;
@@ -17,6 +19,7 @@ import matteroverdrive.data.matter.MatterEntryItem;
 import matteroverdrive.data.matter.MatterEntryOre;
 import matteroverdrive.handler.MatterRegistry;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 /**
  * GroovyScript registry for Matter Overdrive's matter value table and matter
@@ -45,43 +48,46 @@ public class Matter extends VirtualizedRegistry<Runnable> {
 
     // ---- add / replace ----
 
-    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("item('minecraft:gold_ingot').getItem(), 256"))
-    public void add(Item item, int matter) {
-        add(item, new ItemHandler(matter));
+    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("item('minecraft:gold_ingot'), 256"))
+    public void add(IIngredient ingredient, int matter) {
+        add(ingredient, new ItemHandler(matter));
     }
 
     @MethodDescription(type = MethodDescription.Type.ADDITION)
-    public void add(Item item, IMatterEntryHandler handler) {
-        MatterEntryItem previous = registry().replace(item, handler);
-        undoStack.push(() -> registry().restoreItemEntry(item, previous));
-    }
-
-    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("'oreGold', 256"))
-    public void addOre(String ore, int matter) {
-        addOre(ore, new ItemHandler(matter));
-    }
-
-    @MethodDescription(type = MethodDescription.Type.ADDITION)
-    public void addOre(String ore, IMatterEntryHandler handler) {
-        MatterEntryOre previous = registry().replaceOre(ore, handler);
-        undoStack.push(() -> registry().restoreOreEntry(ore, previous));
+    public void add(IIngredient ingredient, IMatterEntryHandler handler) {
+        if (ingredient instanceof IOreDicts) {
+            for (String ore : ((IOreDicts) ingredient).getOreDicts()) {
+                MatterEntryOre previous = registry().replaceOre(ore, handler);
+                undoStack.push(() -> registry().restoreOreEntry(ore, previous));
+            }
+        } else {
+            for (ItemStack stack : ingredient.getMatchingStacks()) {
+                Item item = stack.getItem();
+                MatterEntryItem previous = registry().replace(item, handler);
+                undoStack.push(() -> registry().restoreItemEntry(item, previous));
+            }
+        }
     }
 
     // ---- remove ----
 
-    @MethodDescription(example = @Example("item('minecraft:apple').getItem()"))
-    public void remove(Item item) {
-        MatterEntryItem previous = registry().unregister(item);
-        if (previous != null) {
-            undoStack.push(() -> registry().restoreItemEntry(item, previous));
-        }
-    }
-
-    @MethodDescription(example = @Example("'oreCopper'"))
-    public void removeOre(String ore) {
-        MatterEntryOre previous = registry().unregisterOre(ore);
-        if (previous != null) {
-            undoStack.push(() -> registry().restoreOreEntry(ore, previous));
+    @MethodDescription(example = @Example("item('minecraft:apple')"))
+    public void remove(IIngredient ingredient) {
+        if (ingredient instanceof IOreDicts) {
+            for (String ore : ((IOreDicts) ingredient).getOreDicts()) {
+                MatterEntryOre previous = registry().unregisterOre(ore);
+                if (previous != null) {
+                    undoStack.push(() -> registry().restoreOreEntry(ore, previous));
+                }
+            }
+        } else {
+            for (ItemStack stack : ingredient.getMatchingStacks()) {
+                Item item = stack.getItem();
+                MatterEntryItem previous = registry().unregister(item);
+                if (previous != null) {
+                    undoStack.push(() -> registry().restoreItemEntry(item, previous));
+                }
+            }
         }
     }
 

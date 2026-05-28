@@ -806,10 +806,8 @@ quest.stem_bolts.objective.1=Return to the cargo ship
 # matter
 groovyscript.wiki.matteroverdrive.matter.title=Matter Registry
 groovyscript.wiki.matteroverdrive.matter.description=Modify the matter value table used by Matter Overdrive's scanner, replicator, and decomposer. Supports individual items, ore dictionary, or entire modIDs.
-groovyscript.wiki.matteroverdrive.matter.add=Set the matter value for an item, replacing any existing entry.
-groovyscript.wiki.matteroverdrive.matter.addOre=Set the matter value for all items matching an ore dictionary name, replacing any existing ore entry.
-groovyscript.wiki.matteroverdrive.matter.remove=Remove the matter entry for an item.
-groovyscript.wiki.matteroverdrive.matter.removeOre=Remove the matter entry for an ore dictionary name.
+groovyscript.wiki.matteroverdrive.matter.add=Set the matter value for an item or ore dictionary group, replacing any existing entry.
+groovyscript.wiki.matteroverdrive.matter.remove=Remove the matter entry for an item or ore dictionary group.
 groovyscript.wiki.matteroverdrive.matter.blacklistMod=Prevent a mod's items from being automatically assigned matter values during scanning. Use modID.
 
 # inscriber

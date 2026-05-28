@@ -11,6 +11,8 @@ import matteroverdrive.data.matter.MatterEntryItem;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.stream.Collectors;
+
 /**
  * Object mappers (a.k.a. bracket handlers) registered with the MO GroovyScript
  * container. Provides:
@@ -33,6 +35,10 @@ final class MOObjectMappers {
                     MatterEntryItem entry = MatterOverdrive.MATTER_REGISTRY.getItemEntries().get(item);
                     return entry == null ? Result.error("No matter entry for: " + s) : Result.some(entry);
                 })
+                .toGroovyCode(entry -> "matter('" + entry.getKey().getRegistryName() + "')")
+                .completerOfNames(() -> MatterOverdrive.MATTER_REGISTRY.getItemEntries().keySet().stream()
+                        .map(item -> item.getRegistryName().toString())
+                        .collect(Collectors.toList()))
                 .docOfType("matter entry")
                 .register();
 
