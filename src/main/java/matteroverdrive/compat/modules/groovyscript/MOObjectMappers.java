@@ -14,9 +14,9 @@ import net.minecraft.util.ResourceLocation;
 import java.util.stream.Collectors;
 
 /**
- * Object mappers (a.k.a. bracket handlers) registered with the MO GroovyScript
- * container. Provides:
- *
+ * Object mappers registered with the MO GroovyScript container. 
+ * 
+ * Provides:
  * <ul>
  *   <li>{@code matter('modid:itemid')} → {@link MatterEntryItem}</li>
  *   <li>{@code androidStat('unlocalized_name')} → {@link IBioticStat}</li>

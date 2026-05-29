@@ -1,5 +1,6 @@
 package matteroverdrive.compat.modules.groovyscript;
 
+import com.cleanroommc.groovyscript.api.GroovyBlacklist;
 import com.cleanroommc.groovyscript.compat.mods.GroovyContainer;
 import com.cleanroommc.groovyscript.compat.mods.GroovyPropertyContainer;
 
@@ -11,6 +12,9 @@ import com.cleanroommc.groovyscript.compat.mods.GroovyPropertyContainer;
  */
 public class MatterOverdriveContainer extends GroovyPropertyContainer {
 
+    @GroovyBlacklist
+    public static MatterOverdriveContainer instance;
+
     public final Matter matter = new Matter();
     public final Inscriber inscriber = new Inscriber();
     public final Android android = new Android();
@@ -19,5 +23,6 @@ public class MatterOverdriveContainer extends GroovyPropertyContainer {
     @Override
     public void initialize(GroovyContainer<?> owner) {
         super.initialize(owner);
+        instance = this;
     }
 }

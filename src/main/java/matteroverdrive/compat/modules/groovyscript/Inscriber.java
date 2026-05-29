@@ -67,7 +67,7 @@ public class Inscriber extends StandardListRegistry<InscriberRecipe> {
 
     @Property(property = "input", comp = @Comp(eq = 2))
     @Property(property = "output", comp = @Comp(eq = 1))
-    public class RecipeBuilder extends AbstractRecipeBuilder<InscriberRecipe> {
+    public static class RecipeBuilder extends AbstractRecipeBuilder<InscriberRecipe> {
 
         @Property(defaultValue = "1000")
         private int energy = 1000;
@@ -102,13 +102,14 @@ public class Inscriber extends StandardListRegistry<InscriberRecipe> {
         @RecipeBuilderRegistrationMethod
         public InscriberRecipe register() {
             if (!validate()) return null;
-            ItemStack[] mainStacks = input.get(0).getMatchingStacks();
-            ItemStack[] secStacks = input.get(1).getMatchingStacks();
-            ItemStack main = mainStacks.length > 0 ? mainStacks[0] : ItemStack.EMPTY;
-            ItemStack sec = secStacks.length > 0 ? secStacks[0] : ItemStack.EMPTY;
             ItemStack out = output.get(0);
-            InscriberRecipe recipe = new InscriberRecipe(main, sec, out, energy, time);
-            Inscriber.this.add(recipe);
+            InscriberRecipe recipe = null;
+            for (ItemStack main : input.get(0).getMatchingStacks()) {
+                for (ItemStack sec : input.get(1).getMatchingStacks()) {
+                    recipe = new InscriberRecipe(main, sec, out, energy, time);
+                    MatterOverdriveContainer.instance.inscriber.add(recipe);
+                }
+            }
             return recipe;
         }
     }
