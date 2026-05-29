@@ -26,21 +26,13 @@ public class Replicator extends VirtualizedRegistry<Item> {
         }
     }
 
-    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("item('matteroverdrive:matter_dust').getItem()"))
-    public void add(Item item) {
-        MatterOverdrive.MATTER_REGISTRY.addToReplicationBlacklist(item);
-        addScripted(item);
-    }
-
-    @MethodDescription(type = MethodDescription.Type.ADDITION)
-    public void add(ItemStack stack) {
-        if (!stack.isEmpty()) add(stack.getItem());
-    }
-
-    @MethodDescription(type = MethodDescription.Type.ADDITION)
+    @MethodDescription(type = MethodDescription.Type.ADDITION, example = {@Example("item('matteroverdrive:matter_dust')"), @Example("ore('blockGold')")})
     public void add(IIngredient ingredient) {
         for (ItemStack stack : ingredient.getMatchingStacks()) {
-            add(stack);
+            if (!stack.isEmpty()) {
+                MatterOverdrive.MATTER_REGISTRY.addToReplicationBlacklist(stack.getItem());
+                addScripted(stack.getItem());
+            }
         }
     }
 
