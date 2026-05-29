@@ -26,4 +26,9 @@ public class MOLinkGenerator extends BasicLinkGenerator {
     protected String defaultBranch() {
         return "master";
     }
+
+    @Override
+    protected String version() {
+        return "master";
+    }
 }
