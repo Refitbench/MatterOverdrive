@@ -48,7 +48,7 @@ public class Matter extends VirtualizedRegistry<Runnable> {
 
     // ---- add / replace ----
 
-    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("item('minecraft:gold_ingot'), 256"))
+    @MethodDescription(type = MethodDescription.Type.ADDITION, example = {@Example("item('minecraft:gold_ingot'), 256"), @Example("ore('blockGold'), 256")})
     public void add(IIngredient ingredient, int matter) {
         add(ingredient, new ItemHandler(matter));
     }
@@ -71,7 +71,7 @@ public class Matter extends VirtualizedRegistry<Runnable> {
 
     // ---- remove ----
 
-    @MethodDescription(example = @Example("item('minecraft:apple')"))
+    @MethodDescription(example = {@Example("item('minecraft:apple')"), @Example("ore('ingotCopper')")})
     public void remove(IIngredient ingredient) {
         if (ingredient instanceof IOreDicts) {
             for (String ore : ((IOreDicts) ingredient).getOreDicts()) {
