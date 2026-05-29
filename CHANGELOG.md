@@ -9,6 +9,16 @@
 ### Removed
 - Insciber recipes registered with XML is now deprecated, please use GroovyScript or CraftTweaker.
 
+## [1.2.2-1.2.3] - 2026-05-28
+### Fixed
+- A dedicated server NSFE crash.
+
+## [1.2.1] - 2026-05-27
+### Added
+- New mixins to surpress ToughAsNails and SimpleDifficulty's temperature calculations when compat is set to surpress mode to true. This is 90% more better.
+### Changed
+- ToughAsNails and SimpleDifficulty's thrist is now done every 39 ticks and billed, this was never something that needed to be ran every tick.
+
 ## [1.2.0] - 2026-05-20
 ### Added
 - Added SimpleDifficulty compatibility, uses same config options as ToughAsNails.
