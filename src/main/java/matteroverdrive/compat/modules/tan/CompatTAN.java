@@ -6,6 +6,7 @@ import matteroverdrive.entity.android_player.AndroidPlayer;
 import matteroverdrive.init.OverdriveBioticStats;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import toughasnails.api.TANBlocks;
 import toughasnails.api.config.GameplayOption;
 import toughasnails.api.config.SyncedConfig;
@@ -22,6 +23,15 @@ public class CompatTAN {
     public static final String ID = "toughasnails";
 
     @SuppressWarnings("null")
+    @Compat.PreInit
+    public static void preInit(FMLPreInitializationEvent event) {
+        // Add required items in PreInit so they exist before CraftTweaker applies its actions,
+        // letting CT scripts clear/modify them like any other required item list.
+        OverdriveBioticStats.tanTemperature.addReqiredItm(new ItemStack(TANBlocks.temperature_coil, 5, 0)); // cooling coil
+        OverdriveBioticStats.tanTemperature.addReqiredItm(new ItemStack(TANBlocks.temperature_coil, 5, 1)); // heating coil
+    }
+
+    @SuppressWarnings("null")
     @Compat.Init
     public static void init(FMLInitializationEvent event) {
         TANHelper.isLoaded = true;
@@ -31,9 +41,6 @@ public class CompatTAN {
         TANHelper.thirstEnergyCost = MatterOverdrive.CONFIG_HANDLER.tanThirstEnergyCost;
         TANHelper.temperatureEnergyCost = MatterOverdrive.CONFIG_HANDLER.tanTemperatureEnergyCost;
         TANHelper.temperatureSuppressMode = MatterOverdrive.CONFIG_HANDLER.tanTemperatureSuppressMode;
-        // Set unlock item requirements only when TAN is present.
-        OverdriveBioticStats.tanTemperature.addReqiredItm(new ItemStack(TANBlocks.temperature_coil, 5, 0)); // cooling coil
-        OverdriveBioticStats.tanTemperature.addReqiredItm(new ItemStack(TANBlocks.temperature_coil, 5, 1)); // heating coil
     }
 
     /**
