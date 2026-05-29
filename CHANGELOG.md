@@ -6,6 +6,8 @@
 - New utility command `/android list` to print all IBioticStat's registered for script use.
 ### Changed
 - Updater chat message now includes clickable link.
+### Removed
+- Insciber recipes registered with XML is now deprecated, please use GroovyScript or CraftTweaker.
 
 ## [1.2.0] - 2026-05-20
 ### Added

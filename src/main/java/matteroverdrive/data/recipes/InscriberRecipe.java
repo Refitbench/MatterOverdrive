@@ -3,10 +3,6 @@ package matteroverdrive.data.recipes;
 
 import java.util.List;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import com.google.common.collect.ImmutableList;
 
 import matteroverdrive.tile.TileEntityInscriber;
@@ -23,12 +19,6 @@ public class InscriberRecipe extends Recipe<TileEntityInscriber> {
 	private int energy;
 	private int time;
 
-	public InscriberRecipe() {
-	}
-
-	/**
-	 * Constructor used by compatibility layers.
-	 */
 	public InscriberRecipe(ItemStack main, ItemStack sec, ItemStack output, int energy, int time) {
 		this.main = main;
 		this.sec = sec;
@@ -71,30 +61,6 @@ public class InscriberRecipe extends Recipe<TileEntityInscriber> {
 	@Override
 	public List<ItemStack> getInputs() {
 		return ImmutableList.of(main, sec);
-	}
-
-	@Override
-	public void fromXML(Element element) {
-		energy = getIntAttr(element, "energy");
-		time = getIntAttr(element, "time");
-
-		NodeList nodes = element.getChildNodes();
-		for (int i = 0; i < nodes.getLength(); i++) {
-			Node node = nodes.item(i);
-			if (node instanceof Element) {
-				switch (node.getNodeName()) {
-				case "primary":
-					main = getStack((Element) node);
-					break;
-				case "secondary":
-					sec = getStack((Element) node);
-					break;
-				case "output":
-					output = getStack((Element) node);
-					break;
-				}
-			}
-		}
 	}
 
 }
