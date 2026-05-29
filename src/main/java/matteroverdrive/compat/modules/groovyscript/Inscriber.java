@@ -60,7 +60,7 @@ public class Inscriber extends StandardListRegistry<InscriberRecipe> {
         }
     }
 
-    @RecipeBuilderDescription(example = @Example(".input(item('minecraft:redstone'))\n.input(item('minecraft:gold_ingot'))\n.output(item('matteroverdrive:circuit_basic'))\n.energy(1000).time(80)"))
+    @RecipeBuilderDescription(example = @Example(".input(item('minecraft:redstone'))\n.input(item('minecraft:gold_ingot'))\n.output(item('matteroverdrive:circuit_basic'))\n.energy(32000).time(120)"))
     public RecipeBuilder recipeBuilder() {
         return new RecipeBuilder();
     }
@@ -69,10 +69,10 @@ public class Inscriber extends StandardListRegistry<InscriberRecipe> {
     @Property(property = "output", comp = @Comp(eq = 1))
     public static class RecipeBuilder extends AbstractRecipeBuilder<InscriberRecipe> {
 
-        @Property(defaultValue = "1000")
-        private int energy = 1000;
-        @Property(defaultValue = "60")
-        private int time = 60;
+        @Property(defaultValue = "64000")
+        private int energy = 64000;
+        @Property(defaultValue = "300")
+        private int time = 300;
 
         @RecipeBuilderMethodDescription
         public RecipeBuilder energy(int energy) {
