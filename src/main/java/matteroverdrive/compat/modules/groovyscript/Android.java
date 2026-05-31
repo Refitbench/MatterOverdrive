@@ -27,7 +27,7 @@ import net.minecraft.item.ItemStack;
  */
 @RegistryDescription(
         linkGenerator = Reference.MOD_ID,
-        category = RegistryDescription.Category.ENTRIES,
+        category = RegistryDescription.Category.CUSTOM,
         admonition = {
                 @Admonition(value = "groovyscript.wiki.matteroverdrive.android.note0", type = Admonition.Type.INFO),
                 @Admonition(value = "groovyscript.wiki.matteroverdrive.android.note1", type = Admonition.Type.TIP)
@@ -47,7 +47,7 @@ public class Android extends VirtualizedRegistry<Runnable> {
         }
     }
 
-    @MethodDescription(type = MethodDescription.Type.VALUE, example = @Example("androidStat('shield'), 25"))
+    @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("androidStat('shield'), 25"))
     public void setXp(AbstractBioticStat stat, int xp) {
         int prev = stat.getXp();
         stat.setXp(xp);
@@ -91,7 +91,7 @@ public class Android extends VirtualizedRegistry<Runnable> {
         });
     }
 
-    @MethodDescription
+    @MethodDescription(example = @Example("androidStat('shield')"))
     public void clearRequiredItems(AbstractBioticStat stat) {
         List<ItemStack> prev = new ArrayList<>(stat.getRequiredItems());
         stat.clearRequiredItems();
@@ -109,7 +109,7 @@ public class Android extends VirtualizedRegistry<Runnable> {
                 .collect(Collectors.toList());
     }
 
-    @MethodDescription(example = @Example("androidStat('cloak')"))
+    @MethodDescription(type = MethodDescription.Type.VALUE, example = @Example("androidStat('cloak')"))
     public void unregister(AbstractBioticStat stat) {
         setHidden(stat, true);
     }
