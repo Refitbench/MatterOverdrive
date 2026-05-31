@@ -24,11 +24,16 @@ public class BioticStatZeroCalories extends AbstractBioticStat {
 			int extractedEnergy = android.extractEnergyRaw(foodNeeded * ENERGY_FOOD_MULTIPLY, false);
 			android.getPlayer().getFoodStats().addStats(extractedEnergy / ENERGY_FOOD_MULTIPLY, 0);
 		}
-		if (TANHelper.enabled && !android.getPlayer().world.isRemote && isEnabled(android, level)) {
-			CompatTAN.suppressThirst(android, TANHelper.thirstEnergyCost);
-		}
-		if (SDHelper.enabled && !android.getPlayer().world.isRemote && isEnabled(android, level)) {
-			CompatSD.suppressThirst(android, SDHelper.thirstEnergyCost);
+		// Defer thirst handling to a 39 tick interval
+		if (!android.getPlayer().world.isRemote
+				&& android.getPlayer().ticksExisted % 39 == 0
+				&& isEnabled(android, level)) {
+			if (TANHelper.enabled) {
+				CompatTAN.suppressThirst(android, TANHelper.thirstEnergyCost);
+			}
+			if (SDHelper.enabled) {
+				CompatSD.suppressThirst(android, SDHelper.thirstEnergyCost);
+			}
 		}
 	}
 

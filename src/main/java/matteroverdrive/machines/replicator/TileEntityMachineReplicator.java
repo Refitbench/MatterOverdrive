@@ -67,7 +67,7 @@ public class TileEntityMachineReplicator extends MOTileEntityMachineMatter
 	@SideOnly(Side.CLIENT)
 	private int replicateAnimationCounter;
 	@SideOnly(Side.CLIENT)
-	private ItemStack ghostItem = ItemStack.EMPTY;
+	private ItemStack ghostItem;
 
 	private ComponentMatterNetworkReplicator networkComponent;
 	private ComponentTaskProcessingReplicator taskProcessingComponent;
@@ -142,7 +142,7 @@ public class TileEntityMachineReplicator extends MOTileEntityMachineMatter
 
 	@SideOnly(Side.CLIENT)
 	public ItemStack getGhostItem() {
-		return ghostItem;
+		return ghostItem == null ? ItemStack.EMPTY : ghostItem;
 	}
 
 	@SideOnly(Side.CLIENT)
