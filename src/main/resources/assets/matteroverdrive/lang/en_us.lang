@@ -823,7 +823,7 @@ groovyscript.wiki.matteroverdrive.inscriber.time.value=Ticks required to complet
 # android
 groovyscript.wiki.matteroverdrive.android.title=Android Biotic Stats
 groovyscript.wiki.matteroverdrive.android.description=Tweak Android biotic stat parameters such as XP cost, required items, and enabled state.
-groovyscript.wiki.matteroverdrive.android.note0=Use the `androidStat(name)` bracket handler to obtain an IBioticStat.
+groovyscript.wiki.matteroverdrive.android.note0=Use the `androidStat(name)` bracket handler to obtain an AbstractBioticStat.
 groovyscript.wiki.matteroverdrive.android.setXp=Set the XP cost in levels required for the given biotic stat.
 groovyscript.wiki.matteroverdrive.android.enable=Set the given biotic stat to be enabled, overriding config-based rules.
 groovyscript.wiki.matteroverdrive.android.disable=Set the given biotic stat to be disabled, overriding config-based rules, disabling the stat features.
@@ -836,4 +836,4 @@ groovyscript.wiki.matteroverdrive.android.note1=Use the command `/android list` 
 # replicator
 groovyscript.wiki.matteroverdrive.replicator.title=Replicator Blacklist
 groovyscript.wiki.matteroverdrive.replicator.description=Add items to the replicator blacklist. Blacklisted items cannot be replicated even if they have a matter value assigned.
-groovyscript.wiki.matteroverdrive.replicator.add=Add an item, item stack, or ingredient to the replicator blacklist.
+groovyscript.wiki.matteroverdrive.replicator.addBlacklist=Add an item, item stack, or ingredient to the replicator blacklist.
