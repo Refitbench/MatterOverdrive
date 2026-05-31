@@ -27,7 +27,7 @@ public class Replicator extends VirtualizedRegistry<Item> {
     }
 
     @MethodDescription(type = MethodDescription.Type.ADDITION, example = {@Example("item('matteroverdrive:matter_dust')"), @Example("ore('blockGold')")})
-    public void add(IIngredient ingredient) {
+    public void addBlacklist(IIngredient ingredient) {
         for (ItemStack stack : ingredient.getMatchingStacks()) {
             if (!stack.isEmpty()) {
                 MatterOverdrive.MATTER_REGISTRY.addToReplicationBlacklist(stack.getItem());
