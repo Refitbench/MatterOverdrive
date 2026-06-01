@@ -823,7 +823,7 @@ groovyscript.wiki.matteroverdrive.inscriber.time.value=Ticks required to complet
 # android
 groovyscript.wiki.matteroverdrive.android.title=Android Biotic Stats
 groovyscript.wiki.matteroverdrive.android.description=Tweak Android biotic stat parameters such as XP cost, required items, and enabled state.
-groovyscript.wiki.matteroverdrive.android.note0=Use the `androidStat(name)` bracket handler to obtain an AbstractBioticStat.
+groovyscript.wiki.matteroverdrive.android.note0=Use the `androidStat(name)` bracket handler to obtain an IBioticStat.
 groovyscript.wiki.matteroverdrive.android.operation.query=Query Biotic Stats
 groovyscript.wiki.matteroverdrive.android.operation.adding=Modify Stat Requirements
 groovyscript.wiki.matteroverdrive.android.operation.removing=Remove Stat Requirements

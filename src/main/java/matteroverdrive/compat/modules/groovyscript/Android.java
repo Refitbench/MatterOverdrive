@@ -47,40 +47,57 @@ public class Android extends VirtualizedRegistry<Runnable> {
         }
     }
 
+    private static AbstractBioticStat asAbs(IBioticStat stat) {
+        if (!(stat instanceof AbstractBioticStat)) {
+            GroovyLog.get().error("Stat {} is not an AbstractBioticStat; cannot mutate via GroovyScript",
+                    stat == null ? "null" : stat.getUnlocalizedName());
+            return null;
+        }
+        return (AbstractBioticStat) stat;
+    }
+
     @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("androidStat('shield'), 25"))
-    public void setXp(AbstractBioticStat stat, int xp) {
-        int prev = stat.getXp();
-        stat.setXp(xp);
-        undoStack.push(() -> stat.setXp(prev));
+    public void setXp(IBioticStat stat, int xp) {
+        AbstractBioticStat a = asAbs(stat);
+        if (a == null) return;
+        int prev = a.getXp();
+        a.setXp(xp);
+        undoStack.push(() -> a.setXp(prev));
     }
 
-    private void setEnabled(AbstractBioticStat stat, Boolean enabled) {
-        Boolean prev = stat.getEnabledOverride();
-        stat.setEnabledOverride(enabled);
-        undoStack.push(() -> stat.setEnabledOverride(prev));
+    private void setEnabled(IBioticStat stat, Boolean enabled) {
+        AbstractBioticStat a = asAbs(stat);
+        if (a == null) return;
+        Boolean prev = a.getEnabledOverride();
+        a.setEnabledOverride(enabled);
+        undoStack.push(() -> a.setEnabledOverride(prev));
     }
 
-    private void setHidden(AbstractBioticStat stat, boolean hidden) {
-        boolean prev = stat.isHiddenOverride();
-        stat.setHiddenOverride(hidden);
-        undoStack.push(() -> stat.setHiddenOverride(prev));
+    private void setHidden(IBioticStat stat, boolean hidden) {
+        AbstractBioticStat a = asAbs(stat);
+        if (a == null) return;
+        boolean prev = a.isHiddenOverride();
+        a.setHiddenOverride(hidden);
+        undoStack.push(() -> a.setHiddenOverride(prev));
     }
 
     @MethodDescription(type = MethodDescription.Type.VALUE)
-    public void disable(AbstractBioticStat stat) {
+    public void disable(IBioticStat stat) {
         setEnabled(stat, Boolean.FALSE);
     }
 
     @MethodDescription(type = MethodDescription.Type.VALUE)
-    public void enable(AbstractBioticStat stat) {
+    public void enable(IBioticStat stat) {
         setEnabled(stat, Boolean.TRUE);
     }
 
     @MethodDescription(type = MethodDescription.Type.ADDITION, example = @Example("androidStat('shield'), item('minecraft:iron_ingot') * 5"))
-    public void addRequiredItem(AbstractBioticStat stat, ItemStack item) {
-        stat.addReqiredItm(item);
+    public void addRequiredItem(IBioticStat stat, ItemStack item) {
+        AbstractBioticStat a = asAbs(stat);
+        if (a == null) return;
+        a.addReqiredItm(item);
         undoStack.push(() -> {
-            List<ItemStack> reqs = stat.getRequiredItems();
+            List<ItemStack> reqs = a.getRequiredItems();
             // remove last matching instance
             for (int i = reqs.size() - 1; i >= 0; i--) {
                 if (ItemStack.areItemStacksEqual(reqs.get(i), item)) {
@@ -92,12 +109,14 @@ public class Android extends VirtualizedRegistry<Runnable> {
     }
 
     @MethodDescription(example = @Example("androidStat('shield')"))
-    public void clearRequiredItems(AbstractBioticStat stat) {
-        List<ItemStack> prev = new ArrayList<>(stat.getRequiredItems());
-        stat.clearRequiredItems();
+    public void clearRequiredItems(IBioticStat stat) {
+        AbstractBioticStat a = asAbs(stat);
+        if (a == null) return;
+        List<ItemStack> prev = new ArrayList<>(a.getRequiredItems());
+        a.clearRequiredItems();
         undoStack.push(() -> {
-            stat.clearRequiredItems();
-            for (ItemStack s : prev) stat.addReqiredItm(s);
+            a.clearRequiredItems();
+            for (ItemStack s : prev) a.addReqiredItm(s);
         });
     }
 
@@ -110,7 +129,7 @@ public class Android extends VirtualizedRegistry<Runnable> {
     }
 
     @MethodDescription(type = MethodDescription.Type.VALUE, example = @Example("androidStat('cloak')"))
-    public void unregister(AbstractBioticStat stat) {
+    public void unregister(IBioticStat stat) {
         setHidden(stat, true);
     }
 }
