@@ -14,14 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
 import org.apache.logging.log4j.Level;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.ByteArrayInputStream;
 
 /**
  * @author shadowfacts
@@ -114,27 +106,24 @@ public class MOIMCHandler {
 		}
 	}
 
+	@SuppressWarnings("null")
 	private static void handleInscriberRecipeRegistration(FMLInterModComms.IMCMessage msg) {
-		if (!msg.isStringMessage()) {
-			MOLog.error("Invalid message format for Inscriber Recipe registration. Message must be a String message");
+		if (!msg.isNBTMessage()) {
+			MOLog.error("Invalid message format for Inscriber Recipe registration from %s: message must be NBTTagCompound with Main, Sec, Output, Energy, Time", msg.getSender());
 			return;
 		}
 		try {
-
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(new ByteArrayInputStream(msg.getStringValue().getBytes()));
-
-			NodeList nodes = document.getElementsByTagName("recipe");
-			for (int i = 0; i < nodes.getLength(); i++) {
-				Node node = nodes.item(i);
-				if (node instanceof Element) {
-					Element e = (Element) node;
-					InscriberRecipe recipe = new InscriberRecipe();
-					recipe.fromXML(e);
-					MatterOverdriveRecipes.INSCRIBER.register(recipe);
-				}
+			NBTTagCompound data = msg.getNBTValue();
+			ItemStack main   = new ItemStack(data.getCompoundTag("Main"));
+			ItemStack sec    = new ItemStack(data.getCompoundTag("Sec"));
+			ItemStack output = new ItemStack(data.getCompoundTag("Output"));
+			int energy = data.getInteger("Energy");
+			int time   = data.getInteger("Time");
+			if (main.isEmpty() || sec.isEmpty() || output.isEmpty()) {
+				MOLog.error("Invalid NBT for Inscriber Recipe registration from %s: Main, Sec, and Output must be non-empty ItemStacks", msg.getSender());
+				return;
 			}
+			MatterOverdriveRecipes.INSCRIBER.register(new InscriberRecipe(main, sec, output, energy, time));
 		} catch (Exception e) {
 			MOLog.log(Level.ERROR, e, "There was a problem while trying to register an Inscriber Recipe from: %s",
 					msg.getSender());

@@ -1,10 +1,11 @@
 
 package matteroverdrive.matter_network.tasks;
 
+import matteroverdrive.MatterOverdrive;
 import matteroverdrive.api.network.MatterNetworkTask;
 import matteroverdrive.data.matter_network.ItemPattern;
-import matteroverdrive.util.MOStringHelper;
 import matteroverdrive.util.MatterHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
@@ -66,7 +67,11 @@ public class MatterNetworkTaskReplicatePattern extends MatterNetworkTask {
 			return false;
 		}
 
-		return MatterHelper.getMatterAmountFromItem(pattern.toItemStack(false)) > 0;
+		ItemStack stack = pattern.toItemStack(false);
+		if (MatterOverdrive.MATTER_REGISTRY.isReplicationBlacklisted(stack)) {
+			return false;
+		}
+		return MatterHelper.getMatterAmountFromItem(stack) > 0;
 	}
 
 	public int getAmount() {

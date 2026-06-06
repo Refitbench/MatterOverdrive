@@ -13,11 +13,24 @@ import matteroverdrive.init.OverdriveBioticStats;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 @Compat(CompatSD.ID)
 public class CompatSD {
 
     public static final String ID = "simpledifficulty";
+
+    @SuppressWarnings("null")
+    @Compat.PreInit
+    public static void preInit(FMLPreInitializationEvent event) {
+        // Add required items in PreInit so they exist before CraftTweaker applies its actions.
+        if (SDBlocks.heater != null) {
+            OverdriveBioticStats.tanTemperature.addReqiredItm(new ItemStack(SDBlocks.heater, 5));
+        }
+        if (SDBlocks.chiller != null) {
+            OverdriveBioticStats.tanTemperature.addReqiredItm(new ItemStack(SDBlocks.chiller, 5));
+        }
+    }
 
     @SuppressWarnings("null")
     @Compat.Init
@@ -35,14 +48,6 @@ public class CompatSD {
             MatterOverdrive.LOGGER.warn("Both ToughAsNails and SimpleDifficulty are present. "
                     + "These mods provide overlapping gameplay systems and Matter Overdrive treats them "
                     + "as mutually exclusive. Both compat modules will run independently.");
-        }
-
-        // Set unlock item requirements only when SD is present.
-        if (SDBlocks.heater != null) {
-            OverdriveBioticStats.tanTemperature.addReqiredItm(new ItemStack(SDBlocks.heater, 5));
-        }
-        if (SDBlocks.chiller != null) {
-            OverdriveBioticStats.tanTemperature.addReqiredItm(new ItemStack(SDBlocks.chiller, 5));
         }
     }
 

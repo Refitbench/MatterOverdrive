@@ -180,6 +180,7 @@ public class MatterOverdrive {
 
 		PROXY.preInit(event);
 
+		MatterOverdriveRecipes.registerDefaultInscriberRecipes();
 		MatterOverdriveCompat.preInit(event);
 		LOGGER = event.getModLog();
 	}

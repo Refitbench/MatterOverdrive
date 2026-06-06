@@ -1,4 +1,16 @@
 # Changelog
+## [1.3.0] - 2026-05-26
+### Added
+- GroovyScript compatibility (Preferred). See [GroovyScript Documentation](https://cleanroommc.com/groovy-script/mods/matteroverdrive)
+- CraftTweaker2 compatibility (Legacy). See [CraftTweaker Documentation](https://github.com/Refitbench/MatterOverdrive/wiki)
+- New utility command `/android list` to print all IBioticStat's registered for script use.
+### Changed
+- Updater chat message now includes clickable link.
+### Removed
+- Insciber recipes registered with XML is now deprecated, please use GroovyScript or CraftTweaker.
+### Fixed
+- A NSME crash on dedicated servers from using the wrong method.
+
 ## [1.2.2-1.2.3] - 2026-05-28
 ### Fixed
 - A dedicated server NSFE crash.

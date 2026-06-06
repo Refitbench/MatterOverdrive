@@ -10,6 +10,7 @@ import matteroverdrive.MatterOverdrive;
 import matteroverdrive.Reference;
 import matteroverdrive.api.android.IBioticStat;
 import matteroverdrive.client.render.HoloIcon;
+import matteroverdrive.data.biostats.AbstractBioticStat;
 import matteroverdrive.entity.android_player.AndroidPlayer;
 import matteroverdrive.gui.MOGuiBase;
 import matteroverdrive.gui.element.ElementSlot;
@@ -46,6 +47,9 @@ public class ElementBioStat extends MOElementButton {
 
 	@Override
 	public boolean isEnabled() {
+		if (!MatterOverdrive.STAT_REGISTRY.hasStat(stat.getUnlocalizedName())) {
+			return false;
+		}
 		if (stat.canBeUnlocked(player, level)) {
 			if (player.getUnlockedLevel(stat) < stat.maxLevel()) {
 				return true;
@@ -55,6 +59,13 @@ public class ElementBioStat extends MOElementButton {
 	}
 
 	protected void ApplyColor() {
+		boolean hidden = !MatterOverdrive.STAT_REGISTRY.hasStat(stat.getUnlocalizedName())
+				|| (stat instanceof AbstractBioticStat && ((AbstractBioticStat) stat).isHiddenFromStation());
+		if (hidden) {
+			// Stat is disabled or soft-unregistered via script — render grayed out
+			GlStateManager.color(0.4f, 0.4f, 0.4f, 0.4f);
+			return;
+		}
 		if (stat.canBeUnlocked(player, level) || player.isUnlocked(stat, level)) {
 			if (level <= 0) {
 				RenderUtils.applyColorWithMultipy(Reference.COLOR_HOLO, 0.5f);

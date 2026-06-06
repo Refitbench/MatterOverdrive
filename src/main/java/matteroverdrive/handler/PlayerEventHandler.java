@@ -18,6 +18,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.event.ClickEvent;
+import net.minecraft.util.text.event.HoverEvent;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.player.PlayerContainerEvent;
@@ -65,11 +67,19 @@ public class PlayerEventHandler {
 			if (container != null) {
 				ForgeVersion.CheckResult result = ForgeVersion.getResult(container);
 				if (result.status == ForgeVersion.Status.OUTDATED || result.status == ForgeVersion.Status.BETA_OUTDATED) {
-					event.player.sendMessage(new TextComponentString(
+					TextComponentString header = new TextComponentString(
 							TextFormatting.GOLD + "[Matter Overdrive] " + TextFormatting.WHITE
-									+ "A newer version is available: " + TextFormatting.AQUA + result.target));
-					event.player.sendMessage(new TextComponentString(
-							TextFormatting.WHITE + "Download: " + TextFormatting.GREEN + Reference.DOWNLOAD_URL));
+									+ "A newer version is available: " + TextFormatting.AQUA + result.target);
+					event.player.sendMessage(header);
+
+					TextComponentString downloadLabel = new TextComponentString(TextFormatting.WHITE + "Download: ");
+					TextComponentString downloadLink = new TextComponentString(TextFormatting.GREEN + "" + TextFormatting.UNDERLINE + "Click Here to Download");
+					downloadLink.getStyle()
+							.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, Reference.DOWNLOAD_URL))
+							.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+									new TextComponentString(Reference.DOWNLOAD_URL)));
+					downloadLabel.appendSibling(downloadLink);
+					event.player.sendMessage(downloadLabel);
 				}
 			}
 		}

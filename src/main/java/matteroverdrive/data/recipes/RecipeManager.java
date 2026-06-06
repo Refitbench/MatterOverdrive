@@ -3,14 +3,7 @@ package matteroverdrive.data.recipes;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.item.ItemStack;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,31 +20,25 @@ public class RecipeManager<M, R extends Recipe<M>> {
 		this.recipeClass = recipeClass;
 	}
 
-	public void load(File file) {
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(file);
-			document.getDocumentElement().normalize();
-
-			NodeList nodes = document.getElementsByTagName("recipe");
-			for (int i = 0; i < nodes.getLength(); i++) {
-				Node node = nodes.item(i);
-				if (node instanceof Element) {
-					Element e = (Element) node;
-					R recipe = recipeClass.newInstance();
-					recipe.fromXML(e);
-					register(recipe);
-				}
-			}
-
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 	public void register(R recipe) {
 		recipes.add(recipe);
+	}
+
+	/**
+	 * Removes the exact recipe instance from this manager. Returns {@code true}
+	 * if the recipe was present.
+	 */
+	public boolean remove(R recipe) {
+		return recipes.remove(recipe);
+	}
+
+	/**
+	 * Returns the live, mutable list. Intended for compatibility layers that need to
+	 * add/remove recipes and snapshot state for reload. External callers should prefer
+	 * {@link #getRecipes()} for read-only access.
+	 */
+	public List<R> getRecipesMutable() {
+		return recipes;
 	}
 
 	public Optional<R> get(M machine) {
