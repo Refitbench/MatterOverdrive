@@ -8,6 +8,8 @@
 - Updater chat message now includes clickable link.
 ### Removed
 - Insciber recipes registered with XML is now deprecated, please use GroovyScript or CraftTweaker.
+### Fixed
+- A NSME crash on dedicated servers from using the wrong method.
 
 ## [1.2.2-1.2.3] - 2026-05-28
 ### Fixed
