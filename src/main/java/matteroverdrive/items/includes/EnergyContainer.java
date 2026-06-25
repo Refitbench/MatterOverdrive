@@ -92,19 +92,12 @@ public class EnergyContainer extends EnergyStorage implements INBTSerializable<N
 	}
 
 	public void setEnergy(int energy) {
+		int maxEnergy = stack != null ? getMaxEnergyStored() : this.capacity;
+		this.energy = Math.min(Math.max(energy, 0), maxEnergy);
+
 		if (stack != null) {
-			getStackEnergyTag().setInteger("energy", energy);
-
-			if (getEnergyStored() > getMaxEnergyStored()) {
-				setFull();
-			}
-
-			return;
+			getStackEnergyTag().setInteger("energy", this.energy);
 		}
-
-		this.energy = energy;
-		if (this.energy > this.capacity)
-			setFull();
 	}
 
 	@Override
