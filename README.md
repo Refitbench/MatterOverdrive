@@ -55,4 +55,4 @@ If you are coming from MO:CE and have no current setups built, switch is fairly 
 ![Matter Overdrive Blocks and Items](https://mo.simeonradivoev.com/wp-content/uploads/2015/05/main_screenshot.png)
 
 ## Issues:
-https://github.com/Refitbench/MatterOverdrive-CE-Cleanroom/issues
+https://github.com/Refitbench/MatterOverdrive/issues
