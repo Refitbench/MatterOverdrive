@@ -593,6 +593,7 @@ public class AndroidPlayer implements IEnergyStorage, IAndroid {
 		int calculatedXP = 0;
 		for (Object key : this.unlocked.getKeySet()) {
 			IBioticStat stat = MatterOverdrive.STAT_REGISTRY.getStat(key.toString());
+			if (stat == null) continue; // stat was unregistered
 			int unlocked = this.unlocked.getInteger(key.toString());
 			calculatedXP += stat.getXP(this, unlocked);
 		}

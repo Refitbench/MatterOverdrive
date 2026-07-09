@@ -257,7 +257,7 @@ public class TileEntityGravitationalAnomaly extends MOTileEntity implements ISca
 			if (entity.getPositionVector().squareDistanceTo(cachedCenter) > cachedRangeSq) continue;
 
 			// Chest slot takes priority (matches playerHasEqualizer check order)
-			ItemStack chest = player.inventory.armorItemInSlot(2);
+			ItemStack chest = player.inventory.armorInventory.get(2);
 			if (!chest.isEmpty() && chest.getItem() instanceof SpacetimeEqualizer) {
 				chest.damageItem(1, player);
 				continue;
@@ -279,7 +279,7 @@ public class TileEntityGravitationalAnomaly extends MOTileEntity implements ISca
 	}
 
 	private static boolean playerHasEqualizer(EntityPlayer player) {
-		ItemStack chest = player.inventory.armorItemInSlot(2);
+		ItemStack chest = player.inventory.armorInventory.get(2);
 		if (!chest.isEmpty() && chest.getItem() instanceof SpacetimeEqualizer) return true;
 		if (Loader.isModLoaded("baubles")) {
 			IBaublesItemHandler baubles = BaublesApi.getBaublesHandler(player);

@@ -90,6 +90,15 @@ dependencies {
     // Simple Difficulty (optional compile dependency for SD compat module)
     compileOnly rfg.deobf('curse.maven:simple-difficulty-360779:3613814')
 
+    // GroovyScript (optional compile dependency for groovyscript compat module).
+    // Transitives excluded — codechickenlib (a transitive runtime dep of GroovyScript)
+    compileOnly('com.cleanroommc:groovyscript:1.4.3') { transitive = false }
+    runtimeOnly('com.cleanroommc:groovyscript:1.4.3') { transitive = false }
+
+    // CraftTweaker2 (optional compile dependency for crafttweaker compat module).
+    // @ZenRegister auto-discovery means no runtime registration call is needed.
+    compileOnly 'CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.715'
+
     // Common dependency types (configuration):
     // implementation = dependency available at both compile time and runtime
     // runtimeOnly = runtime dependency

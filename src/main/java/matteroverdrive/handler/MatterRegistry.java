@@ -46,6 +46,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class MatterRegistry implements IMatterRegistry {
 	private static final int MAX_DEPTH = 8;
 	private final Set<String> modBlacklist = Collections.synchronizedSet(new HashSet<>());
+	private final Set<Item> replicatorBlacklist = Collections.synchronizedSet(new HashSet<>());
 	public boolean CALCULATION_DEBUG = false;
 	public boolean AUTOMATIC_CALCULATION = true;
 	public boolean CALCULATE_RECIPES = true;
@@ -402,6 +403,107 @@ public class MatterRegistry implements IMatterRegistry {
 
 	public Map<String, MatterEntryOre> getOreEntries() {
 		return oreEntries;
+	}
+
+	/**
+	 * Removes any registered matter entry for the given item. Returns the entry
+	 * that was previously registered (or {@code null} if there was none) so that
+	 * callers can later restore the previous state.
+	 */
+	public MatterEntryItem unregister(final @Nonnull Item item) {
+		return itemEntries.remove(item);
+	}
+
+	/**
+	 * Removes any registered matter entry for the given ore dictionary key. Returns
+	 * the entry that was previously registered (or {@code null} if there was
+	 * none) so that callers can later restore the previous state.
+	 */
+	public MatterEntryOre unregisterOre(final String ore) {
+		return oreEntries.remove(ore);
+	}
+
+	/**
+	 * Restores a previously captured item entry. Used by external compat layers
+	 * (e.g. GroovyScript) to undo a {@link #unregister(Item)} or replacement.
+	 */
+	public void restoreItemEntry(final Item item, final MatterEntryItem previous) {
+		if (previous != null) {
+			itemEntries.put(item, previous);
+		} else {
+			itemEntries.remove(item);
+		}
+	}
+
+	/**
+	 * Restores a previously captured ore entry. Used by external compat layers
+	 * (e.g. GroovyScript) to undo a {@link #unregisterOre(String)} or replacement.
+	 */
+	public void restoreOreEntry(final String ore, final MatterEntryOre previous) {
+		if (previous != null) {
+			oreEntries.put(ore, previous);
+		} else {
+			oreEntries.remove(ore);
+		}
+	}
+
+	/**
+	 * Replaces any registered handlers for {@code item} with a single entry that
+	 * has only the given {@code handler}. Returns the previous entry (or
+	 * {@code null}) so callers can restore the previous state.
+	 */
+	public MatterEntryItem replace(final @Nonnull Item item, final IMatterEntryHandler handler) {
+		MatterEntryItem previous = itemEntries.remove(item);
+		MatterEntryItem entry = new MatterEntryItem(item);
+		entry.addHandler(handler);
+		itemEntries.put(item, entry);
+		return previous;
+	}
+
+	/**
+	 * Replaces any registered handlers for the given ore dictionary key with a
+	 * single entry that has only the given {@code handler}. Returns the previous
+	 * entry (or {@code null}) so callers can restore the previous state.
+	 */
+	public MatterEntryOre replaceOre(final String ore, final IMatterEntryHandler handler) {
+		MatterEntryOre previous = oreEntries.remove(ore);
+		MatterEntryOre entry = new MatterEntryOre(ore);
+		entry.addHandler(handler);
+		oreEntries.put(ore, entry);
+		return previous;
+	}
+
+	/**
+	 * Removes a mod id previously added with {@link #addModToBlacklist(String)}.
+	 * Returns {@code true} if the id was present.
+	 */
+	public boolean removeFromBlacklist(final String modID) {
+		return modBlacklist.remove(modID);
+	}
+
+	public Set<String> getModBlacklist() {
+		return modBlacklist;
+	}
+
+	/**
+	 * Adds an item to the replicator-only blacklist. Items in this set still have
+	 * their matter value calculated/cached but cannot be inserted as a replicator
+	 * task. Used by external compat layers (e.g. GroovyScript).
+	 */
+	public boolean addToReplicationBlacklist(final Item item) {
+		return replicatorBlacklist.add(item);
+	}
+
+	public boolean removeFromReplicationBlacklist(final Item item) {
+		return replicatorBlacklist.remove(item);
+	}
+
+	public boolean isReplicationBlacklisted(final ItemStack stack) {
+		return stack != null && !stack.isEmpty() && replicatorBlacklist.contains(stack.getItem());
+	}
+
+	public Set<Item> getReplicatorBlacklist() {
+		return replicatorBlacklist;
 	}
 
 	public void debug(final String debug, final Object... params) {

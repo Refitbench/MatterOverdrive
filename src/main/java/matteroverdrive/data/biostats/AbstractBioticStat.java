@@ -4,6 +4,7 @@ package matteroverdrive.data.biostats;
 import java.util.ArrayList;
 import java.util.List;
 
+import matteroverdrive.MatterOverdrive;
 import matteroverdrive.api.android.BionicStatGuiInfo;
 import matteroverdrive.api.android.IBioticStat;
 import matteroverdrive.client.render.HoloIcon;
@@ -22,7 +23,7 @@ public abstract class AbstractBioticStat implements IBioticStat {
 	boolean showOnWheel;
 	@SideOnly(Side.CLIENT)
 	HoloIcon icon;
-	private final int xp;
+	private int xp;
 	private IBioticStat root;
 	private BionicStatGuiInfo guiInfo;
 	private boolean rootMaxLevel;
@@ -30,6 +31,17 @@ public abstract class AbstractBioticStat implements IBioticStat {
 	private final List<ItemStack> requiredItems;
 	private final List<IBioticStat> enabledBlacklist;
 	private int maxLevel;
+	/**
+	 * When non-null, overrides {@link #isEnabled(AndroidPlayer, int)}. Used by
+	 * external compat layers (e.g. GroovyScript) to force-enable or force-disable
+	 * a stat at runtime.
+	 */
+	private Boolean enabledOverride;
+	/**
+	 * When true, hides this stat from the Android Station UI and blocks new
+	 * installations without affecting {@link #isEnabled(AndroidPlayer, int)}.
+	 */
+	private boolean hiddenOverride;
 
 	public AbstractBioticStat(String name, int xp) {
 		this.name = name;
@@ -56,7 +68,50 @@ public abstract class AbstractBioticStat implements IBioticStat {
 
 	@Override
 	public boolean isEnabled(AndroidPlayer android, int level) {
+		if (enabledOverride != null) {
+			return enabledOverride;
+		}
 		return checkBlacklistActive(android, level);
+	}
+
+	/**
+	 * Sets a hard override for {@link #isEnabled(AndroidPlayer, int)} and
+	 * {@link #canBeUnlocked(AndroidPlayer, int)}. Pass {@code null} to clear.
+	 */
+	public void setEnabledOverride(Boolean enabled) {
+		this.enabledOverride = enabled;
+	}
+
+	public Boolean getEnabledOverride() {
+		return enabledOverride;
+	}
+
+	public void setHiddenOverride(boolean hidden) {
+		this.hiddenOverride = hidden;
+	}
+
+	public boolean isHiddenOverride() {
+		return hiddenOverride;
+	}
+
+	/**
+	 * Returns true if this stat should be grayed out and unavailable for new
+	 * installs. Does not affect androids that already have it installed.
+	 */
+	public boolean isHiddenFromStation() {
+		return hiddenOverride || (enabledOverride != null && !enabledOverride);
+	}
+
+	public int getXp() {
+		return xp;
+	}
+
+	public void setXp(int xp) {
+		this.xp = xp;
+	}
+
+	public void clearRequiredItems() {
+		requiredItems.clear();
 	}
 
 	public String getDetails(int level) {
@@ -65,8 +120,17 @@ public abstract class AbstractBioticStat implements IBioticStat {
 
 	@Override
 	public boolean canBeUnlocked(AndroidPlayer android, int level) {
-		// if the root is not unlocked then this stat can't be unlocked
-		if (root != null && !android.isUnlocked(root, rootMaxLevel ? root.maxLevel() : 1)) {
+		if (hiddenOverride || (enabledOverride != null && !enabledOverride)) {
+			return false;
+		}
+		// if the root is not unlocked then this stat can't be unlocked.
+		// A root that is disabled or hidden passes through.
+		boolean rootHidden = root instanceof AbstractBioticStat
+				&& ((AbstractBioticStat) root).isHiddenFromStation();
+		if (root != null
+				&& MatterOverdrive.STAT_REGISTRY.hasStat(root.getUnlocalizedName())
+				&& !rootHidden
+				&& !android.isUnlocked(root, rootMaxLevel ? root.maxLevel() : 1)) {
 			return false;
 		}
 		if (isLocked(android, level)) {
